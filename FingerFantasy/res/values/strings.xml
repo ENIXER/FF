@@ -3,5 +3,9 @@
 
     <string name="app_name">FingerFantasy</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_questmenu">MainActivity</string>
+    <string name="title_activity_battle">BattleActivity</string>
 
 </resources>

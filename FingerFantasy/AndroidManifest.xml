@@ -14,13 +14,23 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:name=".StartActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".QuestmenuActivity"
+            android:label="@string/title_activity_questmenu"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".BattleActivity"
+            android:label="@string/title_activity_battle" 
+			>
         </activity>
     </application>
 
