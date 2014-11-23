@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.chokobo.fingerfantasy.ActivityManager;
 import com.chokobo.fingerfantasy.R;
 import com.chokobo.fingerfantasy.characters.CharacterManager;
 
@@ -27,7 +28,7 @@ import android.view.View;
  * 一筆書きの描画領域
  * 
  * @author ENIXER
- *
+ * 
  */
 public class TestView extends View {
 
@@ -56,6 +57,7 @@ public class TestView extends View {
 	/** アニメーション種別 */
 	private int type = 0;
 	private Bitmap anim;
+	public int aniCount = 0;
 	/** アニメーション用の画像IDリスト */
 	private int[][] resources = {
 			{ R.drawable.wind_001, R.drawable.wind_002, R.drawable.wind_003,
@@ -159,9 +161,10 @@ public class TestView extends View {
 		Random rand = new Random(System.currentTimeMillis());
 		Set<Integer> places = new HashSet<Integer>();
 		if (!targets.isEmpty())
-			for (int i = 0; i < targets.size(); i++)
-				places.add(targets.get(i).id);
-		for (int i = 0; i < TARGETS_NUM; i++) {
+			for (int i = 0; i < targets.size(); i++) {
+				places.add((int) (targets.get(i).x / 100 - 1 + (targets.get(i).y / 100 - 1) * 8));
+			}
+		for (int i = targets.size(); i < TARGETS_NUM; i++) {
 			int p = rand.nextInt(40);
 			while (!places.add(p))
 				p = rand.nextInt(40);
@@ -197,6 +200,7 @@ public class TestView extends View {
 			anim.recycle();
 			frame++;
 		}
+		isAnimated = false;
 	}
 
 	@Override
@@ -223,7 +227,16 @@ public class TestView extends View {
 			deleteTargets();
 			makeTargets();
 			invalidate();
-			CharacterManager.damage(totalDamage);
+			CharacterManager.damage(CharacterManager.getEnemy(), totalDamage);
+			CharacterManager.decEnemyturn();
+			if (CharacterManager.isEnemyDead())
+				ActivityManager.intentActivity(); // 敵を討伐判定
+			if (CharacterManager.isEnemyturn())
+				CharacterManager.damage(CharacterManager.getPlayer(),
+						CharacterManager.getEnemyAtk()); // 敵の攻撃
+			if (CharacterManager.isPlayerDead())
+				ActivityManager.intentActivity(); // プレイヤー死亡判定
+			makeTargets();
 			totalDamage = 0;
 			break;
 		}
@@ -293,8 +306,12 @@ public class TestView extends View {
 					}
 				}
 				if (count % 2 == 1) {
-					pointsOfDeletion++;
-					deletionId = i;
+					//animation();
+					targets.remove(t);
+					i--;
+					pointList.clear();
+					totalDamage += CharacterManager.getPlayerAtk();
+					break;
 				}
 			}
 			if (pointsOfDeletion == 1) {
@@ -305,7 +322,7 @@ public class TestView extends View {
 			animation();
 			for (int deletionId : idList)
 				targets.remove(deletionId);
-			totalDamage += CharacterManager.getAtk();
+			totalDamage += CharacterManager.getPlayerAtk();
 		}
 		pointList.clear();
 		polygons.clear();
@@ -333,7 +350,7 @@ public class TestView extends View {
 	 * 囲う対象となるターゲット
 	 * 
 	 * @author ENIXER
-	 *
+	 * 
 	 */
 	private class RoundingTarget {
 		int id;
