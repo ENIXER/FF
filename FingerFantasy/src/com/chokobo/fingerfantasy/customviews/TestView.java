@@ -58,8 +58,8 @@ public class TestView extends View {
 
 	/** 初期設定を行う */
 	private void init() {
-		setupPaint();
-		makeTargets();
+		setupPaint();  //手書き処理
+		makeTargets(); 
 		polygons = new ArrayList<List<PointF>>();
 	}
 
@@ -72,7 +72,7 @@ public class TestView extends View {
 		while (targets.size() < TARGETS_NUM) {
 			float targetX = rand.nextInt(4) * 100 + 100;
 			float targetY = rand.nextInt(8) * 100 + 100;
-			if (!isNearAnyOtherTargets(targetX, targetY)) {
+			if (!isNearAnyOtherTargets(targetX, targetY)) { //近くに居るかの判定
 				targets.add(new RoundingTarget(targetX, targetY, target));
 			}
 		}

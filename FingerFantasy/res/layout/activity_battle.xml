@@ -8,4 +8,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <ImageView 
+        android:id="@+id/player_level"
+        android:src="@drawable/ic_launcher"
+        android:layout_height="50dp"
+        android:layout_width="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        />
+    
+    <ProgressBar
+        android:id="@+id/player_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_toRightOf="@id/player_level"
+        android:indeterminate="false"
+        android:progressDrawable="@drawable/player_bar" 
+        />
+    
+    <ProgressBar 
+        android:id="@+id/enemy_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+		android:layout_width="290dp"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_marginLeft="20dp"
+		android:layout_marginBottom="15dp"
+		android:indeterminate="false"
+		android:progressDrawable="@drawable/player_bar"
+        />
+
 </RelativeLayout>

@@ -21,14 +21,11 @@ public class QuestmenuActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_questmenu);
 		
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
-		//ƒAƒCƒeƒ€‚ğ’Ç‰Á‚·‚é
-		adapter.add("ƒSƒuƒŠƒ“‚ÌX");
-		adapter.add("ƒhƒ‰ƒSƒ“‚Ì‰ÎR");
-		adapter.add("ƒŠƒ”ƒ@ƒCƒAƒTƒ“‚Ì‘ê");
+		adapter.add("ã‚´ãƒ–ãƒªãƒ³ã®æ£®");
+		adapter.add("ãƒ‰ãƒ©ã‚´ãƒ³ã®ç«å±±");
+		adapter.add("ãƒªãƒ´ã‚¡ã‚¤ã‚¢ã‚µãƒ³ã®æ»");
 		ListView listView = (ListView)findViewById(R.id.questList);
-		//ƒAƒ_ƒvƒ^‚ğƒZƒbƒg‚·‚é
 		listView.setAdapter(adapter);
-		//ƒŠƒXƒgƒrƒ…[‚ÌƒAƒCƒeƒ€‚ªƒNƒŠƒbƒN‚³‚ê‚½‚ÉŒÄ‚Ño‚³‚ê‚éƒR[ƒ‹ƒoƒbƒN‚ğ“o˜^
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 		
 
