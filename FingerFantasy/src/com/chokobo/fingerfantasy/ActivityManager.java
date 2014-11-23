@@ -1,14 +1,13 @@
 package com.chokobo.fingerfantasy;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.widget.TextView;
 
 public class ActivityManager {
-	static Activity origin_activity;
+	static BattleActivity origin_activity;
 
-	static public void setActivity(Activity activity) {
+	static public void setActivity(BattleActivity activity) {
 		origin_activity = activity;
 	}
 
@@ -26,5 +25,9 @@ public class ActivityManager {
 			turnText.setTextColor(Color.RED);
 		else
 			turnText.setTextColor(Color.BLACK);
+	}
+
+	static public void showContinue() {
+		origin_activity.showContinue();
 	}
 }

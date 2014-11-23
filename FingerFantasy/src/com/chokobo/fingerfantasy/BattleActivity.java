@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.view.Menu;
 
 public class BattleActivity extends ActionBarActivity {
 
@@ -69,7 +70,21 @@ public class BattleActivity extends ActionBarActivity {
 
 		ImageView enemy_imageview = (ImageView) findViewById(R.id.enemy_image);
 		enemy_imageview.setImageBitmap(enemy_image);
+	}
 
+	public void showContinue() {
+		Intent i = new Intent(this,
+				com.chokobo.fingerfantasy.ResetActivity.class);
+		i.putExtra("quest_no", quest_no);
+		startActivity(i);
+
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.battle, menu);
+		return true;
 	}
 
 }

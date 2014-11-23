@@ -9,6 +9,13 @@ public class CharacterManager {
 	static Player player;
 	static Enemy enemy;
 
+	enum EnemyId {
+		ZAKO,
+	    GOBURIN,
+	    DRAGON,
+	    LEVIATHAN,
+	};
+	
 	/*
 	 * enemy_id 1:あご(HP:200, 攻:10, 1ターン) 2:ドラゴン(HP:300, 攻:30, 3ターン)
 	 * 3:雑魚(HP:5000, 攻:1500, 1ターン)
@@ -18,30 +25,38 @@ public class CharacterManager {
 			ProgressBar enemy_bar, int enemy_id) {
 
 		player = new Player(100, 10, player_bar);
-
-		int hp, atk, turn;
+		
+		int hp, atk, turn, exp, crystal;
 		switch (enemy_id) {
 		case 1:
 			hp = 120;
 			atk = 10;
-			turn = 1;
+			exp = 60;
+			crystal = 2;
+			turn = 3;
 			break;
 		case 2:
 			hp = 1000;
 			atk = 30;
+			exp = 1000;
+			crystal = 4;
 			turn = 3;
 			break;
 		case 3:
 			hp = 2600;
 			atk = 1500;
-			turn = 1;
+			exp = 1500;
+			crystal = 4;
+			turn = 2;
 			break;
 		default:
 			hp = 1;
 			atk = 1;
+			exp = 1;
+			crystal = 1;
 			turn = 1;
 		}
-		enemy = new Enemy(hp, atk, enemy_bar, turn);
+		enemy = new Enemy(hp, atk, enemy_bar, turn,exp,crystal);
 	}
 
 	public static void damage(Character charcter, int totalDamage) {
@@ -75,8 +90,10 @@ public class CharacterManager {
 
 	public static boolean isEnemyturn() {
 		boolean result = false;
-		if (enemy.getEnemyTurn() == 0)
+		if (enemy.getEnemyTurn() == 0){
+			enemy.resetTurn();
 			result = true;
+		}
 		return result;
 	}
 

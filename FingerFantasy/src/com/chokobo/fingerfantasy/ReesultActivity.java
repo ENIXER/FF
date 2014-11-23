@@ -1,9 +1,11 @@
 package com.chokobo.fingerfantasy;
 import android.app.Activity;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class ReesultActivity extends Activity implements View.OnClickListener{
 
