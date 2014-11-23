@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.chokobo.fingerfantasy.R;
 import com.chokobo.fingerfantasy.characters.CharacterManager;
@@ -17,6 +19,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.opengl.Matrix;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -46,7 +49,43 @@ public class TestView extends View {
 	private List<RoundingTarget> targets;
 	/** 与える総ダメージ */
 	private int totalDamage;
-	
+
+	/** アニメーション中かどうかのフラグ */
+	private boolean isAnimated = false;
+	/** アニメーション用のフレーム変数 */
+	private int frame = 0;
+	private Timer timer;
+	/** アニメーション用の画像IDリスト */
+	private int[] resources = { R.drawable.wind_001, R.drawable.wind_002,
+			R.drawable.wind_003, R.drawable.wind_004, R.drawable.wind_005,
+			R.drawable.wind_006, R.drawable.wind_007, R.drawable.wind_008,
+			R.drawable.wind_009, R.drawable.wind_010, R.drawable.wind_011,
+			R.drawable.wind_012, R.drawable.wind_013, R.drawable.wind_014,
+			R.drawable.wind_015, R.drawable.wind_016, R.drawable.wind_017,
+			R.drawable.wind_018, R.drawable.wind_019, R.drawable.wind_020,
+			R.drawable.wind_021, R.drawable.wind_022, R.drawable.wind_023,
+			R.drawable.wind_024, R.drawable.wind_025, R.drawable.wind_026,
+			R.drawable.wind_027, R.drawable.wind_028, R.drawable.wind_029,
+			R.drawable.wind_030, R.drawable.wind_031, R.drawable.wind_032,
+			R.drawable.wind_033, R.drawable.wind_034, R.drawable.wind_035,
+			R.drawable.wind_036, R.drawable.wind_037, R.drawable.wind_038,
+			R.drawable.wind_039, R.drawable.wind_040, R.drawable.wind_041,
+			R.drawable.wind_042, R.drawable.wind_043, R.drawable.wind_044,
+			R.drawable.wind_045, R.drawable.wind_046, R.drawable.wind_047,
+			R.drawable.wind_048, R.drawable.wind_049, R.drawable.wind_050,
+			R.drawable.wind_051, R.drawable.wind_052, R.drawable.wind_053,
+			R.drawable.wind_054, R.drawable.wind_055, R.drawable.wind_056,
+			R.drawable.wind_057, R.drawable.wind_058, R.drawable.wind_059,
+			R.drawable.wind_060, R.drawable.wind_061, R.drawable.wind_062,
+			R.drawable.wind_063, R.drawable.wind_064, R.drawable.wind_065,
+			R.drawable.wind_066, R.drawable.wind_067, R.drawable.wind_068,
+			R.drawable.wind_069, R.drawable.wind_070, R.drawable.wind_071,
+			R.drawable.wind_072, R.drawable.wind_073, R.drawable.wind_074,
+			R.drawable.wind_075, R.drawable.wind_076, R.drawable.wind_077,
+			R.drawable.wind_078, R.drawable.wind_079, R.drawable.wind_080,
+			R.drawable.wind_081, };
+	List<Bitmap> bitmapResources;
+
 	public TestView(Context context) {
 		super(context);
 		init();
@@ -72,9 +111,7 @@ public class TestView extends View {
 	/** ターゲットを{@link TARGETS_NUM}個だけ互いに重なり合わないように生成する */
 	private void makeTargets() {
 		targets = new ArrayList<RoundingTarget>();
-	
-		
-		
+
 		Bitmap origin_image = BitmapFactory.decodeResource(getResources(),
 				R.drawable.crystal2);
 		Bitmap target = Bitmap.createScaledBitmap(origin_image, 70, 70, false);
@@ -97,6 +134,7 @@ public class TestView extends View {
 		paint = new Paint();
 		paint.setColor(0xFF008800);
 		paint.setStyle(Paint.Style.STROKE);
+		paint.setAntiAlias(true);
 		paint.setStrokeJoin(Paint.Join.ROUND);
 		paint.setStrokeCap(Paint.Cap.ROUND);
 		paint.setStrokeWidth(10);
@@ -107,6 +145,13 @@ public class TestView extends View {
 		canvas.drawPath(path, paint);
 		for (RoundingTarget t : targets)
 			canvas.drawBitmap(t.image, t.x, t.y, paint);
+		if (isAnimated && frame < resources.length) {
+			Bitmap bm = BitmapFactory.decodeResource(getResources(),
+					resources[frame]);
+			canvas.drawBitmap(bm, 0, 0, paint);
+			isAnimated = false;
+			frame++;
+		}
 	}
 
 	@Override
@@ -114,7 +159,7 @@ public class TestView extends View {
 
 		float x = event.getX();
 		float y = event.getY();
-		
+
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
 			path.moveTo(x, y);
@@ -159,7 +204,7 @@ public class TestView extends View {
 					addPolygon(i, j);
 			}
 		}
-		//pointList.clear();
+		// pointList.clear();
 	}
 
 	/**
@@ -195,6 +240,7 @@ public class TestView extends View {
 					}
 				}
 				if (count % 2 == 1) {
+					animation();
 					targets.remove(t);
 					i--;
 					pointList.clear();
@@ -204,6 +250,22 @@ public class TestView extends View {
 			}
 		}
 		polygons.clear();
+	}
+
+	private void animation() {
+		frame = 0;
+		final Handler handler = new Handler();
+		timer = new Timer(false);
+		timer.schedule(new TimerTask() {
+			public void run() {
+				handler.post(new Runnable() {
+					public void run() {
+						isAnimated = true;
+						invalidate();
+					}
+				});
+			}
+		}, 0, 33);
 	}
 
 	/**
@@ -225,11 +287,5 @@ public class TestView extends View {
 			this.centerY = y + image.getHeight() / 2;
 		}
 
-		public boolean isNearBy(float targetX, float targetY) {
-			if (Math.abs(x - targetX) <= image.getWidth() + 30
-					&& Math.abs(y - targetY) <= image.getHeight() + 30)
-				return true;
-			return false;
-		}
 	}
 }
