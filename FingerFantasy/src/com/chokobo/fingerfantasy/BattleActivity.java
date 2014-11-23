@@ -1,12 +1,9 @@
 package com.chokobo.fingerfantasy;
 
 import com.chokobo.fingerfantasy.characters.CharacterManager;
-import com.chokobo.fingerfantasy.characters.Enemy;
-import com.chokobo.fingerfantasy.characters.Player;
 
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
@@ -14,18 +11,11 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 public class BattleActivity extends ActionBarActivity {
 
-	private Player player;
-	private Enemy enemy;
-	
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);		

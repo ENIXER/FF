@@ -2,16 +2,72 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/quest_background"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.chokobo.fingerfantasy.QuestmenuActivity" >
 
-    <ListView 
-        android:id="@+id/questList"
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="93dp"
+        android:layout_height="44dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="10dp"
+        android:background="@drawable/back"
+        android:minHeight="48dp"
+        android:onClick="onBackButtonClick" />
+
+    <LinearLayout
+        android:id="@+id/buttons"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
+        android:layout_height="wrap_content"
+        android:layout_above="@id/backButton"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical" >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/quest_green"
+            android:onClick="onQuestButtonClick"
+            android:tag="1" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/quest_red"
+            android:onClick="onQuestButtonClick"
+            android:tag="2" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/quest_blue"
+            android:onClick="onQuestButtonClick"
+            android:tag="3" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/quest_purple"
+            android:onClick="onQuestButtonClick"
+            android:tag="4" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/quest_yellow"
+            android:onClick="onQuestButtonClick"
+            android:tag="5" />
+    </LinearLayout>
 
 </RelativeLayout>

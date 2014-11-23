@@ -2,8 +2,6 @@ package com.chokobo.fingerfantasy.characters;
 
 import android.widget.ProgressBar;
 
-import com.chokobo.fingerfantasy.R;
-
 public class CharacterManager {
 
 	static Player player;

@@ -6,12 +6,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
 
 public class QuestmenuActivity extends ActionBarActivity {
 
@@ -19,26 +13,14 @@ public class QuestmenuActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_questmenu);
-		
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
-		adapter.add("ゴブリンの森");
-		adapter.add("ドラゴンの火山");
-		adapter.add("リヴァイアサンの滝");
-		ListView listView = (ListView)findViewById(R.id.questList);
-		listView.setAdapter(adapter);
-		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-		
+	}
 
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				ListView listView = (ListView)parent;
-				String item=(String)listView.getItemAtPosition(position);
-				Intent i = new Intent(QuestmenuActivity.this, com.chokobo.fingerfantasy.BattleActivity.class);
-				i.putExtra("quest_no", position+1);
-				i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				QuestmenuActivity.this.startActivityForResult(i, position);
-			}
-		});
+	public void onQuestButtonClick(View v) {
+		Intent i = new Intent(QuestmenuActivity.this,
+				com.chokobo.fingerfantasy.BattleActivity.class);
+		i.putExtra("quest_no", Integer.parseInt((String) v.getTag()));
+		i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(i);
 	}
 
 	@Override
@@ -58,5 +40,9 @@ public class QuestmenuActivity extends ActionBarActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	public void onBackButtonClick(View v) {
+		finish();
 	}
 }
