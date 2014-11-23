@@ -20,14 +20,13 @@ import android.view.View;
 
 public class TestView extends View {
 
+	private static final int TARGETS_NUM = 3;
 	private Paint paint;
 	private Path path;
 	private List<PointF> pointList = new ArrayList<PointF>();
 	private float EPS = (float) 1e-9;
 	private List<List<PointF>> polygons;
-	private Bitmap target;
-
-	private float targetX, targetY;
+	private List<RoundingTarget> targets;
 
 	public TestView(Context context) {
 		super(context);
@@ -45,6 +44,35 @@ public class TestView extends View {
 	}
 
 	private void init() {
+		setupPaint();
+		makeTargets();
+		polygons = new ArrayList<List<PointF>>();
+	}
+
+	private void makeTargets() {
+		targets = new ArrayList<RoundingTarget>();
+		Bitmap target = BitmapFactory.decodeResource(getResources(),
+				R.drawable.ic_launcher);
+		while (targets.size() < TARGETS_NUM) {
+			float targetX = new Random(System.currentTimeMillis()).nextFloat() * 400 + 100;
+			float targetY = new Random(System.currentTimeMillis()).nextFloat() * 800 + 100;
+			if (!isNearAnyOtherTargets(targetX, targetY)) {
+				targets.add(new RoundingTarget(targetX, targetY, target));
+			}
+		}
+	}
+
+	private boolean isNearAnyOtherTargets(float targetX, float targetY) {
+		if (targets == null || targets.size() == 0)
+			return false;
+		for (RoundingTarget t : targets) {
+			if (t.isNearBy(targetX, targetY))
+				return true;
+		}
+		return false;
+	}
+
+	private void setupPaint() {
 		path = new Path();
 
 		paint = new Paint();
@@ -53,19 +81,13 @@ public class TestView extends View {
 		paint.setStrokeJoin(Paint.Join.ROUND);
 		paint.setStrokeCap(Paint.Cap.ROUND);
 		paint.setStrokeWidth(10);
-
-		targetX = new Random(System.currentTimeMillis()).nextFloat() * 400 + 100;
-		targetY = new Random(System.currentTimeMillis()).nextFloat() * 800 + 100;
-		target = BitmapFactory.decodeResource(getResources(),
-				R.drawable.ic_launcher);
-		polygons = new ArrayList<List<PointF>>();
 	}
 
 	@Override
 	protected void onDraw(Canvas canvas) {
 		canvas.drawPath(path, paint);
-		if (target != null)
-			canvas.drawBitmap(target, targetX, targetY, paint);
+		for (RoundingTarget t : targets)
+			canvas.drawBitmap(t.image, t.x, t.y, paint);
 	}
 
 	@Override
@@ -126,30 +148,50 @@ public class TestView extends View {
 	}
 
 	private void checkInside() {
-		if (target == null)
+		if (targets.size() == 0)
 			return;
-		PointF targetPoint = new PointF(targetX + target.getWidth() / 2,
-				targetY + target.getHeight() / 2);
-		int count = 0;
-		for (List<PointF> list : polygons) {
-			for (int i = 0; i < list.size(); i++) {
-				PointF a = list.get(i);
-				PointF b = list.get((i + 1) % list.size());
-				if ((targetPoint.x < a.x && targetPoint.x < b.x)
-						&& (targetPoint.y < a.y && targetPoint.y > b.y || targetPoint.y > a.y
-								&& targetPoint.y < b.y)) {
-					count++;
+		for (int i = 0; i < targets.size(); i++) {
+			RoundingTarget t = targets.get(i);
+			PointF targetPoint = new PointF(t.centerX, t.centerY);
+			int count = 0;
+			for (List<PointF> list : polygons) {
+				for (int j = 0; j < list.size(); j++) {
+					PointF a = list.get(j);
+					PointF b = list.get((j + 1) % list.size());
+					if ((targetPoint.x < a.x && targetPoint.x < b.x)
+							&& (targetPoint.y < a.y && targetPoint.y > b.y || targetPoint.y > a.y
+									&& targetPoint.y < b.y)) {
+						count++;
+					}
+				}
+				if (count % 2 == 1) {
+					targets.remove(t);
+					i--;
+					break;
 				}
 			}
-			if (count % 2 == 1) {
-				reset();
-			}
 		}
+		polygons.clear();
 	}
 
-	private void reset() {
-		target = null;
-		init();
-		polygons.clear();
+	private class RoundingTarget {
+		float x, y;
+		float centerX, centerY;
+		Bitmap image;
+
+		public RoundingTarget(float x, float y, Bitmap image) {
+			this.x = x;
+			this.y = y;
+			this.image = image;
+			this.centerX = x + image.getWidth() / 2;
+			this.centerY = y + image.getHeight() / 2;
+		}
+
+		public boolean isNearBy(float targetX, float targetY) {
+			if (Math.abs(x - targetX) <= image.getWidth() + 30
+					&& Math.abs(y - targetY) <= image.getHeight() + 30)
+				return true;
+			return false;
+		}
 	}
 }
