@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.chokobo.fingerfantasy.ActivityManager;
 import com.chokobo.fingerfantasy.R;
 import com.chokobo.fingerfantasy.characters.CharacterManager;
 
@@ -18,7 +19,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
-import android.opengl.Matrix;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -29,7 +29,7 @@ import android.view.View;
  * 一筆書きの描画領域
  * 
  * @author ENIXER
- *
+ * 
  */
 public class TestView extends View {
 
@@ -55,6 +55,7 @@ public class TestView extends View {
 	/** アニメーション用のフレーム変数 */
 	private int frame = 0;
 	private Timer timer;
+	public int aniCount = 0;
 	/** アニメーション用の画像IDリスト */
 	private int[] resources = { R.drawable.wind_001, R.drawable.wind_002,
 			R.drawable.wind_003, R.drawable.wind_004, R.drawable.wind_005,
@@ -110,14 +111,19 @@ public class TestView extends View {
 
 	/** ターゲットを{@link TARGETS_NUM}個だけ互いに重なり合わないように生成する */
 	private void makeTargets() {
-		targets = new ArrayList<RoundingTarget>();
+		if (targets == null)
+			targets = new ArrayList<RoundingTarget>();
 
 		Bitmap origin_image = BitmapFactory.decodeResource(getResources(),
 				R.drawable.crystal2);
 		Bitmap target = Bitmap.createScaledBitmap(origin_image, 70, 70, false);
 		Random rand = new Random(System.currentTimeMillis());
 		Set<Integer> places = new HashSet<Integer>();
-		for (int i = 0; i < TARGETS_NUM; i++) {
+		if (!targets.isEmpty())
+			for (int i = 0; i < targets.size(); i++) {
+				places.add((int) (targets.get(i).x / 100 - 1 + (targets.get(i).y / 100 - 1) * 8));
+			}
+		for (int i = targets.size(); i < TARGETS_NUM; i++) {
 			int p = rand.nextInt(40);
 			while (!places.add(p))
 				p = rand.nextInt(40);
@@ -149,9 +155,9 @@ public class TestView extends View {
 			Bitmap bm = BitmapFactory.decodeResource(getResources(),
 					resources[frame]);
 			canvas.drawBitmap(bm, 0, 0, paint);
-			isAnimated = false;
 			frame++;
 		}
+		isAnimated = false;
 	}
 
 	@Override
@@ -176,7 +182,16 @@ public class TestView extends View {
 		case MotionEvent.ACTION_UP:
 			path.reset();
 			invalidate();
-			CharacterManager.damage(totalDamage);
+			CharacterManager.damage(CharacterManager.getEnemy(), totalDamage);
+			CharacterManager.decEnemyturn();
+			if (CharacterManager.isEnemyDead())
+				ActivityManager.intentActivity(); // 敵を討伐判定
+			if (CharacterManager.isEnemyturn())
+				CharacterManager.damage(CharacterManager.getPlayer(),
+						CharacterManager.getEnemyAtk()); // 敵の攻撃
+			if (CharacterManager.isPlayerDead())
+				ActivityManager.intentActivity(); // プレイヤー死亡判定
+			makeTargets();
 			totalDamage = 0;
 			break;
 		}
@@ -240,11 +255,11 @@ public class TestView extends View {
 					}
 				}
 				if (count % 2 == 1) {
-					animation();
+					//animation();
 					targets.remove(t);
 					i--;
 					pointList.clear();
-					totalDamage += CharacterManager.getAtk();
+					totalDamage += CharacterManager.getPlayerAtk();
 					break;
 				}
 			}
@@ -272,7 +287,7 @@ public class TestView extends View {
 	 * 囲う対象となるターゲット
 	 * 
 	 * @author ENIXER
-	 *
+	 * 
 	 */
 	private class RoundingTarget {
 		float x, y;

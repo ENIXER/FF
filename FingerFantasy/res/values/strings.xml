@@ -7,5 +7,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_questmenu">MainActivity</string>
     <string name="title_activity_battle">BattleActivity</string>
+    <string name="title_activity_reesult">ReesultActivity</string>
 
 </resources>
