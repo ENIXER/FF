@@ -18,14 +18,27 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+/**
+ * 一筆書きの描画領域
+ * 
+ * @author ENIXER
+ *
+ */
 public class TestView extends View {
 
-	private static final int TARGETS_NUM = 3;
+	/** ターゲットの個数 */
+	private static int TARGETS_NUM = 3;
+	/** 指で描いた軌跡を表示するために使用する */
 	private Paint paint;
+	/** 指で描いた軌跡を保持するために使用する */
 	private Path path;
+	/** 指で描いた軌跡の座標のリスト */
 	private List<PointF> pointList = new ArrayList<PointF>();
+	/** float同士の大小比較で誤差による誤動作を防ぐための値 */
 	private float EPS = (float) 1e-9;
+	/** 指で描いた軌跡のうち、囲まれた部分を保持しておくために使用する */
 	private List<List<PointF>> polygons;
+	/** 囲むべきターゲットのリスト */
 	private List<RoundingTarget> targets;
 
 	public TestView(Context context) {
@@ -43,25 +56,37 @@ public class TestView extends View {
 		init();
 	}
 
+	/** 初期設定を行う */
 	private void init() {
 		setupPaint();
 		makeTargets();
 		polygons = new ArrayList<List<PointF>>();
 	}
 
+	/** ターゲットを{@link TARGETS_NUM}個だけ互いに重なり合わないように生成する */
 	private void makeTargets() {
 		targets = new ArrayList<RoundingTarget>();
 		Bitmap target = BitmapFactory.decodeResource(getResources(),
 				R.drawable.ic_launcher);
+		Random rand = new Random(System.currentTimeMillis());
 		while (targets.size() < TARGETS_NUM) {
-			float targetX = new Random(System.currentTimeMillis()).nextFloat() * 400 + 100;
-			float targetY = new Random(System.currentTimeMillis()).nextFloat() * 800 + 100;
+			float targetX = rand.nextInt(4) * 100 + 100;
+			float targetY = rand.nextInt(8) * 100 + 100;
 			if (!isNearAnyOtherTargets(targetX, targetY)) {
 				targets.add(new RoundingTarget(targetX, targetY, target));
 			}
 		}
 	}
 
+	/**
+	 * 与えられた座標がすでにあるターゲットの付近にあるかどうかを判定する
+	 * 
+	 * @param targetX
+	 *            x座標
+	 * @param targetY
+	 *            y座標
+	 * @return どれか1つでも近くにあった場合はtrue, ターゲットが生成されていなかったり、付近にどれも存在していない場合はfalse
+	 */
 	private boolean isNearAnyOtherTargets(float targetX, float targetY) {
 		if (targets == null || targets.size() == 0)
 			return false;
@@ -72,6 +97,7 @@ public class TestView extends View {
 		return false;
 	}
 
+	/** 指で描く線の設定 */
 	private void setupPaint() {
 		path = new Path();
 
@@ -117,6 +143,7 @@ public class TestView extends View {
 		return true;
 	}
 
+	/** 指で描かれた線を見て、交差部分がある場合は多角形を追加する */
 	private void checkCrossing() {
 		Log.d("up", Integer.toString(pointList.size()));
 		for (int i = 0; i < pointList.size() - 1; i++) {
@@ -140,6 +167,14 @@ public class TestView extends View {
 		pointList.clear();
 	}
 
+	/**
+	 * 多角形を追加する
+	 * 
+	 * @param s
+	 *            スタートとなる頂点のインデックス
+	 * @param g
+	 *            ゴールとなる頂点のインデックス
+	 */
 	private void addPolygon(int s, int g) {
 		List<PointF> list = new ArrayList<PointF>();
 		for (int i = s; i <= g; i++)
@@ -174,6 +209,12 @@ public class TestView extends View {
 		polygons.clear();
 	}
 
+	/**
+	 * 囲う対象となるターゲット
+	 * 
+	 * @author ENIXER
+	 *
+	 */
 	private class RoundingTarget {
 		float x, y;
 		float centerX, centerY;
