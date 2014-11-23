@@ -23,6 +23,7 @@ import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.VideoView;
 
 /**
  * 一筆書きの描画領域
@@ -162,14 +163,14 @@ public class TestView extends View {
 		Set<Integer> places = new HashSet<Integer>();
 		if (!targets.isEmpty())
 			for (int i = 0; i < targets.size(); i++) {
-				places.add((int) (targets.get(i).x / 100 - 1 + (targets.get(i).y / 100 - 1) * 8));
+				places.add((int) (targets.get(i).x / 100 - 1 + (targets.get(i).y / 100 - 2) * 7));
 			}
 		for (int i = targets.size(); i < TARGETS_NUM; i++) {
-			int p = rand.nextInt(40);
+			int p = rand.nextInt(35);
 			while (!places.add(p))
-				p = rand.nextInt(40);
+				p = rand.nextInt(35);
 			int targetX = p % 5 * 100 + 100;
-			int targetY = p / 5 * 100 + 100;
+			int targetY = p / 5 * 100 + 200;
 			targets.add(new RoundingTarget(p, targetX, targetY, target));
 		}
 	}
@@ -306,7 +307,7 @@ public class TestView extends View {
 					}
 				}
 				if (count % 2 == 1) {
-					//animation();
+					animation();
 					targets.remove(t);
 					i--;
 					pointList.clear();
@@ -319,7 +320,6 @@ public class TestView extends View {
 			}
 		}
 		if (idList.size() > 0) {
-			animation();
 			for (int deletionId : idList)
 				targets.remove(deletionId);
 			totalDamage += CharacterManager.getPlayerAtk();
@@ -329,21 +329,7 @@ public class TestView extends View {
 	}
 
 	private void animation() {
-		Random rand = new Random(System.currentTimeMillis());
-		type = rand.nextInt(2);
-		frame = 0;
-		final Handler handler = new Handler();
-		timer = new Timer(false);
-		timer.schedule(new TimerTask() {
-			public void run() {
-				handler.post(new Runnable() {
-					public void run() {
-						isAnimated = true;
-						invalidate();
-					}
-				});
-			}
-		}, 0, 33);
+		ActivityManager.startMovie();
 	}
 
 	/**

@@ -22,17 +22,17 @@ public class CharacterManager {
 		int hp, atk, turn;
 		switch (enemy_id) {
 		case 1:
-			hp = 200;
+			hp = 120;
 			atk = 10;
 			turn = 1;
 			break;
 		case 2:
-			hp = 300;
+			hp = 1000;
 			atk = 30;
 			turn = 3;
 			break;
 		case 3:
-			hp = 5000;
+			hp = 2600;
 			atk = 1500;
 			turn = 1;
 			break;

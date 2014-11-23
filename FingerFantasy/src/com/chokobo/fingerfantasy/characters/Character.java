@@ -8,7 +8,6 @@ public abstract class Character {
 	protected int atk;
 	protected ProgressBar bar;
 	
-	
 	protected Character(int h, int a, ProgressBar b) {
 		hp = h;
 		atk = a;

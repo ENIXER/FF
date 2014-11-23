@@ -17,7 +17,6 @@
         android:layout_alignParentLeft="true"
         android:layout_margin="10dp"
         android:background="@drawable/back"
-        android:minHeight="48dp"
         android:onClick="onBackButtonClick" />
 
     <LinearLayout
@@ -57,16 +56,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/quest_purple"
-            android:onClick="onQuestButtonClick"
+            android:background="@drawable/quest_purple_ng"
             android:tag="4" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/quest_yellow"
-            android:onClick="onQuestButtonClick"
+            android:background="@drawable/quest_yellow_ng"
             android:tag="5" />
     </LinearLayout>
 
