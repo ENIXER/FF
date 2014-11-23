@@ -1,11 +1,14 @@
 package com.chokobo.fingerfantasy;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.widget.TextView;
 
 public class ActivityManager {
-	static BattleActivity origin_activity;
+	static Activity origin_activity;
 
-	static public void setActivity(BattleActivity activity) {
+	static public void setActivity(Activity activity) {
 		origin_activity = activity;
 	}
 
@@ -15,7 +18,13 @@ public class ActivityManager {
 		origin_activity.startActivityForResult(i, 1);
 	}
 
-	static public void startMovie() {
-		origin_activity.startMovie();
+	static public void setTurn(int turn) {
+		TextView turnText = (TextView) origin_activity
+				.findViewById(R.id.turn_text);
+		turnText.setText(Integer.toString(turn));
+		if (turn == 1)
+			turnText.setTextColor(Color.RED);
+		else
+			turnText.setTextColor(Color.BLACK);
 	}
 }

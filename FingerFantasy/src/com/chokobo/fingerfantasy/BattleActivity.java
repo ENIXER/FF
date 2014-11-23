@@ -7,11 +7,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.VideoView;
 
 public class BattleActivity extends ActionBarActivity {
 
@@ -34,13 +32,14 @@ public class BattleActivity extends ActionBarActivity {
 		ProgressBar p_bar = (ProgressBar) findViewById(R.id.player_bar);
 		ProgressBar e_bar = (ProgressBar) findViewById(R.id.enemy_bar);
 		CharacterManager.initCharacter(p_bar, e_bar, quest_no);
+		CharacterManager.setTurn();
 	}
 
 	private void setEnemy() {
 		Bitmap enemy_image;
 
 		RelativeLayout layout = (RelativeLayout) findViewById(R.id.battle_layout);
-		ImageView enemyName = (ImageView)findViewById(R.id.enemy_name);
+		ImageView enemyName = (ImageView) findViewById(R.id.enemy_name);
 
 		switch (quest_no) {
 		case 1:
@@ -70,12 +69,7 @@ public class BattleActivity extends ActionBarActivity {
 
 		ImageView enemy_imageview = (ImageView) findViewById(R.id.enemy_image);
 		enemy_imageview.setImageBitmap(enemy_image);
+
 	}
 
-	public void startMovie(){
-		VideoView view = (VideoView) findViewById(R.id.video);
-		view.setVisibility(View.VISIBLE);
-		view.setVideoPath("assets/ice_efect.mp4");
-		view.start();
-	}
 }

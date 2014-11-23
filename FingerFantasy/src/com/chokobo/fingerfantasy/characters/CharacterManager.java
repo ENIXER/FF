@@ -1,5 +1,7 @@
 package com.chokobo.fingerfantasy.characters;
 
+import com.chokobo.fingerfantasy.ActivityManager;
+
 import android.widget.ProgressBar;
 
 public class CharacterManager {
@@ -8,9 +10,7 @@ public class CharacterManager {
 	static Enemy enemy;
 
 	/*
-	 * enemy_id 
-	 * 1:あご(HP:200, 攻:10, 1ターン) 
-	 * 2:ドラゴン(HP:300, 攻:30, 3ターン) 
+	 * enemy_id 1:あご(HP:200, 攻:10, 1ターン) 2:ドラゴン(HP:300, 攻:30, 3ターン)
 	 * 3:雑魚(HP:5000, 攻:1500, 1ターン)
 	 */
 
@@ -66,6 +66,11 @@ public class CharacterManager {
 
 	public static void decEnemyturn() {
 		enemy.decEnemyTurn();
+		setTurn();
+	}
+
+	public static void setTurn() {
+		ActivityManager.setTurn(enemy.getEnemyTurn());
 	}
 
 	public static boolean isEnemyturn() {
@@ -74,12 +79,12 @@ public class CharacterManager {
 			result = true;
 		return result;
 	}
-	
-	public static boolean isPlayerDead(){
+
+	public static boolean isPlayerDead() {
 		return player.isDead();
 	}
-	
-	public static boolean isEnemyDead(){
+
+	public static boolean isEnemyDead() {
 		return enemy.isDead();
 	}
 

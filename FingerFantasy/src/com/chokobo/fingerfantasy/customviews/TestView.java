@@ -23,7 +23,6 @@ import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.VideoView;
 
 /**
  * 一筆書きの描画領域
@@ -260,7 +259,7 @@ public class TestView extends View {
 					continue;
 				float r = ((D.y - C.y) * acx - (D.x - C.x) * acy) / BUNBO;
 				float s = ((B.y - A.y) * acx - (B.x - A.x) * acy) / BUNBO;
-				if (r >= EPS && r <= 1 && s >= EPS && s <= 1)
+				if (r > EPS && r < 1 && s > EPS && s < 1)
 					addPolygon(i, j);
 			}
 		}
@@ -307,7 +306,7 @@ public class TestView extends View {
 					}
 				}
 				if (count % 2 == 1) {
-					animation();
+					// animation();
 					targets.remove(t);
 					i--;
 					pointList.clear();
@@ -320,6 +319,7 @@ public class TestView extends View {
 			}
 		}
 		if (idList.size() > 0) {
+			animation();
 			for (int deletionId : idList)
 				targets.remove(deletionId);
 			totalDamage += CharacterManager.getPlayerAtk();
@@ -329,7 +329,21 @@ public class TestView extends View {
 	}
 
 	private void animation() {
-		ActivityManager.startMovie();
+		Random rand = new Random(System.currentTimeMillis());
+		type = rand.nextInt(2);
+		frame = 0;
+		final Handler handler = new Handler();
+		timer = new Timer(false);
+		timer.schedule(new TimerTask() {
+			public void run() {
+				handler.post(new Runnable() {
+					public void run() {
+						isAnimated = true;
+						invalidate();
+					}
+				});
+			}
+		}, 0, 33);
 	}
 
 	/**
