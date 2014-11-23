@@ -1,17 +1,31 @@
 package com.chokobo.fingerfantasy;
 
+import com.chokobo.fingerfantasy.characters.CharacterManager;
+import com.chokobo.fingerfantasy.characters.Enemy;
+import com.chokobo.fingerfantasy.characters.Player;
+
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class BattleActivity extends ActionBarActivity {
 
+	private Player player;
+	private Enemy enemy;
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);		
@@ -19,19 +33,39 @@ public class BattleActivity extends ActionBarActivity {
 		
 		Intent i = getIntent();
 		int quest_no = i.getIntExtra("quest_no",-1);
-		Toast.makeText(this, "Quest: "+ quest_no, Toast.LENGTH_SHORT).show();
 		
-		ProgressBar player_bar = (ProgressBar)findViewById(R.id.player_bar);
-		player_bar.setMax(1000);
-		player_bar.setProgress(800);
-		player_bar.bringToFront();
-		
-		ProgressBar enemy_bar = (ProgressBar)findViewById(R.id.enemy_bar);
-		enemy_bar.setMax(1000);
-		enemy_bar.setProgress(800);
-		enemy_bar.bringToFront();
+		initView();
 	}
 
+	private void initView(){
+		//Resources r = getResources();
+		//Bitmap enemy_image = BitmapFactory.decodeResource(r,R.drawable.dragon);
+		//ImageView enemy_imageview = (ImageView)findViewById(R.id.enemy_image);
+		//enemy_imageview.setImageBitmap(enemy_image);
+		
+        // ビットマップ作成オブジェクトの設定
+        BitmapFactory.Options bmfOptions = new BitmapFactory.Options();
+        // ARGBでそれぞれ0～127段階の色を使用（メモリ対策）
+        bmfOptions.inPreferredConfig = Config.ARGB_4444;
+        // 画像を1/20サイズに縮小（メモリ対策）
+        bmfOptions.inSampleSize = 20;
+        // システムメモリ上に再利用性の無いオブジェクトがある場合に勝手に解放（メモリ対策）
+        bmfOptions.inPurgeable = true;
+        // 現在の表示メトリクスの取得
+        DisplayMetrics dm = this.getResources().getDisplayMetrics();
+        // ビットマップのサイズを現在の表示メトリクスに合わせる（メモリ対策）
+        bmfOptions.inDensity = dm.densityDpi;
+        // 画像ファイルオブジェクトとビットマップ作成オブジェクトから、ビットマップオブジェクト作成
+        Bitmap enemy_image = BitmapFactory.decodeResource(getResources(),R.drawable.dragon_light);
+        
+		ImageView enemy_imageview = (ImageView)findViewById(R.id.enemy_image);
+		enemy_imageview.setImageBitmap(enemy_image);
+		
+		ProgressBar p_bar = (ProgressBar)findViewById(R.id.player_bar);
+		ProgressBar e_bar = (ProgressBar)findViewById(R.id.enemy_bar);
+		CharacterManager.initCharacter(p_bar, e_bar);
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

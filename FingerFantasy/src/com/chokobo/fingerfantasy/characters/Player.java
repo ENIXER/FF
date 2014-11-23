@@ -1,9 +1,11 @@
 package com.chokobo.fingerfantasy.characters;
 
+import android.widget.ProgressBar;
+
 public class Player extends Character {
 
-	protected Player(int h, int a) {
-		super(h, a);
+	public Player(int h, int a, ProgressBar b) {
+		super(h, a, b);
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import java.util.Random;
 import java.util.Set;
 
 import com.chokobo.fingerfantasy.R;
+import com.chokobo.fingerfantasy.characters.CharacterManager;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -15,6 +16,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
+import android.opengl.Matrix;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -42,7 +44,9 @@ public class TestView extends View {
 	private List<List<PointF>> polygons;
 	/** 囲むべきターゲットのリスト */
 	private List<RoundingTarget> targets;
-
+	/** 与える総ダメージ */
+	private int totalDamage;
+	
 	public TestView(Context context) {
 		super(context);
 		init();
@@ -68,8 +72,12 @@ public class TestView extends View {
 	/** ターゲットを{@link TARGETS_NUM}個だけ互いに重なり合わないように生成する */
 	private void makeTargets() {
 		targets = new ArrayList<RoundingTarget>();
-		Bitmap target = BitmapFactory.decodeResource(getResources(),
-				R.drawable.ic_launcher);
+	
+		
+		
+		Bitmap origin_image = BitmapFactory.decodeResource(getResources(),
+				R.drawable.crystal2);
+		Bitmap target = Bitmap.createScaledBitmap(origin_image, 70, 70, false);
 		Random rand = new Random(System.currentTimeMillis());
 		Set<Integer> places = new HashSet<Integer>();
 		for (int i = 0; i < TARGETS_NUM; i++) {
@@ -106,7 +114,7 @@ public class TestView extends View {
 
 		float x = event.getX();
 		float y = event.getY();
-
+		
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
 			path.moveTo(x, y);
@@ -116,13 +124,15 @@ public class TestView extends View {
 		case MotionEvent.ACTION_MOVE:
 			path.lineTo(x, y);
 			pointList.add(new PointF(x, y));
+			checkCrossing();
+			checkInside();
 			invalidate();
 			break;
 		case MotionEvent.ACTION_UP:
-			checkCrossing();
-			checkInside();
 			path.reset();
 			invalidate();
+			CharacterManager.damage(totalDamage);
+			totalDamage = 0;
 			break;
 		}
 		return true;
@@ -149,7 +159,7 @@ public class TestView extends View {
 					addPolygon(i, j);
 			}
 		}
-		pointList.clear();
+		//pointList.clear();
 	}
 
 	/**
@@ -187,6 +197,8 @@ public class TestView extends View {
 				if (count % 2 == 1) {
 					targets.remove(t);
 					i--;
+					pointList.clear();
+					totalDamage += CharacterManager.getAtk();
 					break;
 				}
 			}
