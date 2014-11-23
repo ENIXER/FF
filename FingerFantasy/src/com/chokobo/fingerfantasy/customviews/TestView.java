@@ -1,8 +1,10 @@
 package com.chokobo.fingerfantasy.customviews;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import com.chokobo.fingerfantasy.R;
 
@@ -58,8 +60,8 @@ public class TestView extends View {
 
 	/** 初期設定を行う */
 	private void init() {
-		setupPaint();  //手書き処理
-		makeTargets(); 
+		setupPaint(); // 手書き処理
+		makeTargets();
 		polygons = new ArrayList<List<PointF>>();
 	}
 
@@ -69,32 +71,15 @@ public class TestView extends View {
 		Bitmap target = BitmapFactory.decodeResource(getResources(),
 				R.drawable.ic_launcher);
 		Random rand = new Random(System.currentTimeMillis());
-		while (targets.size() < TARGETS_NUM) {
-			float targetX = rand.nextInt(4) * 100 + 100;
-			float targetY = rand.nextInt(8) * 100 + 100;
-			if (!isNearAnyOtherTargets(targetX, targetY)) { //近くに居るかの判定
-				targets.add(new RoundingTarget(targetX, targetY, target));
-			}
+		Set<Integer> places = new HashSet<Integer>();
+		for (int i = 0; i < TARGETS_NUM; i++) {
+			int p = rand.nextInt(40);
+			while (!places.add(p))
+				p = rand.nextInt(40);
+			int targetX = p % 5 * 100 + 100;
+			int targetY = p / 8 * 100 + 100;
+			targets.add(new RoundingTarget(targetX, targetY, target));
 		}
-	}
-
-	/**
-	 * 与えられた座標がすでにあるターゲットの付近にあるかどうかを判定する
-	 * 
-	 * @param targetX
-	 *            x座標
-	 * @param targetY
-	 *            y座標
-	 * @return どれか1つでも近くにあった場合はtrue, ターゲットが生成されていなかったり、付近にどれも存在していない場合はfalse
-	 */
-	private boolean isNearAnyOtherTargets(float targetX, float targetY) {
-		if (targets == null || targets.size() == 0)
-			return false;
-		for (RoundingTarget t : targets) {
-			if (t.isNearBy(targetX, targetY))
-				return true;
-		}
-		return false;
 	}
 
 	/** 指で描く線の設定 */
@@ -185,11 +170,11 @@ public class TestView extends View {
 	private void checkInside() {
 		if (targets.size() == 0)
 			return;
-		for (int i = 0; i < targets.size(); i++) {
-			RoundingTarget t = targets.get(i);
-			PointF targetPoint = new PointF(t.centerX, t.centerY);
-			int count = 0;
-			for (List<PointF> list : polygons) {
+		int count = 0;
+		for (List<PointF> list : polygons) {
+			for (int i = 0; i < targets.size(); i++) {
+				RoundingTarget t = targets.get(i);
+				PointF targetPoint = new PointF(t.centerX, t.centerY);
 				for (int j = 0; j < list.size(); j++) {
 					PointF a = list.get(j);
 					PointF b = list.get((j + 1) % list.size());
