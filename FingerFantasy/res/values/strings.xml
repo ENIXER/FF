@@ -8,5 +8,7 @@
     <string name="title_activity_questmenu">MainActivity</string>
     <string name="title_activity_battle">BattleActivity</string>
     <string name="title_activity_reesult">ReesultActivity</string>
+    <string name="title_activity_continue">ContinueActivity</string>
+    <string name="title_activity_reset">ResetActivity</string>
 
 </resources>

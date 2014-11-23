@@ -55,21 +55,25 @@
         android:layout_above="@id/player_bar"
         android:src="@drawable/lv" />
 
-    <TextView
-        android:id="@+id/lv_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:paddingBottom="47dp"
-        android:paddingLeft="120dp"
-        android:text="1"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#000000" />
-
     <VideoView
         android:id="@+id/video"
         android:layout_width="wrap_content"
         android:visibility="gone"
         android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/lv_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:paddingBottom="47dp"
+        android:paddingLeft="120dp"
+        android:paddingStart="25dp"
+		android:paddingRight="0dp"
+		android:paddingEnd="0dp"
+        android:text="1"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#000000" />
 
 </RelativeLayout>

@@ -6,12 +6,22 @@ import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.VideoView;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 public class BattleActivity extends ActionBarActivity {
 
@@ -70,6 +80,33 @@ public class BattleActivity extends ActionBarActivity {
 
 		ImageView enemy_imageview = (ImageView) findViewById(R.id.enemy_image);
 		enemy_imageview.setImageBitmap(enemy_image);
+	}
+	
+	public void showContinue(){
+		Intent i = new Intent(this,
+				com.chokobo.fingerfantasy.ResetActivity.class);
+		i.putExtra("quest_no", quest_no);
+		startActivity(i);
+		
+//		Toast.makeText(this, "テスト", Toast.LENGTH_LONG).show();
+//		
+//		ImageView imageview = new ImageView(this);
+//		
+//		ImageView continue_view = (ImageView)findViewById(R.id.continue_imageview);
+//		ImageButton yes_button = (ImageButton)findViewById(R.id.yes_image);
+//		//ImageButton no_button = (ImageButton)findViewById(R.id.no_image);
+//		
+//		continue_view.bringToFront();
+//		continue_view.setVisibility(View.VISIBLE);
+//		yes_button.setVisibility(View.VISIBLE);
+		//no_button.setVisibility(View.VISIBLE);
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.battle, menu);
+		return true;
 	}
 
 	public void startMovie(){

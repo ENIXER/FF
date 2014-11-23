@@ -4,7 +4,6 @@ import android.content.Intent;
 
 public class ActivityManager {
 	static BattleActivity origin_activity;
-
 	static public void setActivity(BattleActivity activity) {
 		origin_activity = activity;
 	}
@@ -15,7 +14,7 @@ public class ActivityManager {
 		origin_activity.startActivityForResult(i, 1);
 	}
 
-	static public void startMovie() {
-		origin_activity.startMovie();
+	static public void showContinue(){
+		origin_activity.showContinue();
 	}
 }

@@ -39,6 +39,10 @@
             android:label="@string/title_activity_reesult"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name=".ResetActivity"
+            android:label="@string/title_activity_reset" >
+        </activity>
     </application>
 
 </manifest>

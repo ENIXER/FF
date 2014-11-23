@@ -220,6 +220,7 @@ public class TestView extends View {
 			path.lineTo(x, y);
 			pointList.add(new PointF(x, y));
 			detectPolygon();
+			changeCrystal();
 			invalidate();
 			break;
 		case MotionEvent.ACTION_UP:
@@ -235,8 +236,9 @@ public class TestView extends View {
 			if (CharacterManager.isEnemyturn())
 				CharacterManager.damage(CharacterManager.getPlayer(),
 						CharacterManager.getEnemyAtk()); // 敵の攻撃
-			if (CharacterManager.isPlayerDead())
-				ActivityManager.intentActivity(); // プレイヤー死亡判定
+			if (CharacterManager.isPlayerDead()){
+				ActivityManager.showContinue();
+			}
 			makeTargets();
 			totalDamage = 0;
 			break;
@@ -307,7 +309,7 @@ public class TestView extends View {
 					}
 				}
 				if (count % 2 == 1) {
-					animation();
+					// animation();
 					targets.remove(t);
 					i--;
 					pointList.clear();
@@ -327,9 +329,40 @@ public class TestView extends View {
 		pointList.clear();
 		polygons.clear();
 	}
+	
+	private void changeCrystal(){
+		if (targets.size() == 0)
+			return;
+		for (List<PointF> list : polygons) {
+			int pointsOfDeletion = 0;
+			int deletionId = -1;
+			int count = 0;
+			for (int i = 0; i < targets.size(); i++) {
+				RoundingTarget t = targets.get(i);
+				PointF targetPoint = new PointF(t.centerX, t.centerY);
+				for (int j = 0; j < list.size(); j++) {
+					PointF a = list.get(j);
+					PointF b = list.get((j + 1) % list.size());
+					if ((targetPoint.x < a.x && targetPoint.x < b.x)
+							&& (targetPoint.y < a.y && targetPoint.y > b.y || targetPoint.y > a.y
+									&& targetPoint.y < b.y)) {
+						count++;
+					}
+				}
+				if (count % 2 == 1) {
+					// animation();
+					Bitmap origin_image = BitmapFactory.decodeResource(getResources(),
+							R.drawable.crystal_select);
+					Bitmap target = Bitmap.createScaledBitmap(origin_image, 70, 70, false);
+					t.setImage(target);
+					break;
+				}
+			}
+		}
+	}
 
 	private void animation() {
-		ActivityManager.startMovie();
+		//ActivityManager.startMovie();
 	}
 
 	/**
@@ -351,6 +384,10 @@ public class TestView extends View {
 			this.centerX = x + image.getWidth() / 2;
 			this.centerY = y + image.getHeight() / 2;
 			this.id = id;
+		}
+		
+		public void setImage(Bitmap image){
+			this.image = image;
 		}
 
 	}
