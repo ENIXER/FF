@@ -7,22 +7,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class BattleActivity extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		
-       // getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-       // requestWindowFeature(Window.FEATURE_NO_TITLE);
-		
+		super.onCreate(savedInstanceState);		
 		setContentView(R.layout.activity_battle);
 		
 		Intent i = getIntent();
 		int quest_no = i.getIntExtra("quest_no",-1);
 		Toast.makeText(this, "Quest: "+ quest_no, Toast.LENGTH_SHORT).show();
+		
+		ProgressBar player_bar = (ProgressBar)findViewById(R.id.player_bar);
+		player_bar.setMax(1000);
+		player_bar.setProgress(800);
+		player_bar.bringToFront();
+		
+		ProgressBar enemy_bar = (ProgressBar)findViewById(R.id.enemy_bar);
+		enemy_bar.setMax(1000);
+		enemy_bar.setProgress(800);
+		enemy_bar.bringToFront();
 	}
 
 	@Override

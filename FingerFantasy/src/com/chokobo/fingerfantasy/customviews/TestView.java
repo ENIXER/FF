@@ -44,8 +44,8 @@ public class TestView extends View {
 	}
 
 	private void init() {
-		setupPaint();
-		makeTargets();
+		setupPaint();  //手書き処理
+		makeTargets(); 
 		polygons = new ArrayList<List<PointF>>();
 	}
 
@@ -54,9 +54,9 @@ public class TestView extends View {
 		Bitmap target = BitmapFactory.decodeResource(getResources(),
 				R.drawable.ic_launcher);
 		while (targets.size() < TARGETS_NUM) {
-			float targetX = new Random(System.currentTimeMillis()).nextFloat() * 400 + 100;
-			float targetY = new Random(System.currentTimeMillis()).nextFloat() * 800 + 100;
-			if (!isNearAnyOtherTargets(targetX, targetY)) {
+			float targetX = new Random(System.currentTimeMillis()).nextFloat() * 400 + 100; //100-500
+			float targetY = new Random(System.currentTimeMillis()).nextFloat() * 800 + 100; //100-900
+			if (!isNearAnyOtherTargets(targetX, targetY)) { //近くに居るかの判定
 				targets.add(new RoundingTarget(targetX, targetY, target));
 			}
 		}
