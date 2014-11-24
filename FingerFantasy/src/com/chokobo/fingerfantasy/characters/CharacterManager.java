@@ -11,10 +11,6 @@ public class CharacterManager {
 	static Player player;
 	static Enemy enemy;
 
-	enum EnemyId {
-		ZAKO, GOBURIN, DRAGON, LEVIATHAN,
-	};
-
 	/*
 	 * enemy_id 1:あご(HP:200, 攻:10, 1ターン) 2:ドラゴン(HP:300, 攻:30, 3ターン) enemy_id
 	 * 1:あご(HP:120, 攻:50×ランダム（0.9〜1.1）, 2ターン) 2:ドラゴン(HP:300, 攻:30, 3ターン)

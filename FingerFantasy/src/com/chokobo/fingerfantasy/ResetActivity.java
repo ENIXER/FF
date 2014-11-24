@@ -2,6 +2,7 @@ package com.chokobo.fingerfantasy;
 
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,7 +13,8 @@ import android.widget.RelativeLayout;
 public class ResetActivity extends ActionBarActivity implements View.OnClickListener{
 
 	private int quest_no;
-	
+	private MediaPlayer mMediaPlayer;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,6 +32,12 @@ public class ResetActivity extends ActionBarActivity implements View.OnClickList
     public void onClick(View v) {
 		Intent i = new Intent(this,com.chokobo.fingerfantasy.QuestmenuActivity.class);
 		this.startActivityForResult(i, 1);
+		
+		mMediaPlayer = MediaPlayer.create(this, R.raw.push_bigger);
+		mMediaPlayer.setLooping(false);
+		mMediaPlayer.start();
+		mMediaPlayer.stop();
+		mMediaPlayer.release();
 	}
 
 	public void setBackGround(){

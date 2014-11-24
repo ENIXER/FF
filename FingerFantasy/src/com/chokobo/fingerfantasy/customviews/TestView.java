@@ -154,7 +154,7 @@ public class TestView extends View {
 			targets = new ArrayList<RoundingTarget>();
 
 		Bitmap origin_image = BitmapFactory.decodeResource(getResources(),
-				R.drawable.crystal2);
+				R.drawable.crystal_kai);
 		Bitmap target = Bitmap.createScaledBitmap(origin_image, 70, 70, false);
 		Random rand = new Random(System.currentTimeMillis());
 		Set<Integer> places = new HashSet<Integer>();
@@ -358,7 +358,7 @@ public class TestView extends View {
 				if (count % 2 == 1) {
 					// animation();
 					Bitmap origin_image = BitmapFactory.decodeResource(
-							getResources(), R.drawable.crystal_select);
+							getResources(), R.drawable.crystal_kai_light);
 					Bitmap target = Bitmap.createScaledBitmap(origin_image, 70,
 							70, false);
 					t.setImage(target);

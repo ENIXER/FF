@@ -12,6 +12,7 @@ public class ActivityManager {
 	}
 
 	static public void intentActivity() {
+		origin_activity.resetMedia();
 		Intent i = new Intent(origin_activity,
 				com.chokobo.fingerfantasy.ResultActivity.class);
 		origin_activity.startActivity(i);
