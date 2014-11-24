@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.Image;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 
 public class ResultActivity extends Activity implements View.OnClickListener {
 	private TextView levelText;
+
+	private MediaPlayer mMediaPlayer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,10 @@ public class ResultActivity extends Activity implements View.OnClickListener {
 		CharacterManager.earnExp();
 		setExp();
 		setNextExp();
+		mMediaPlayer = MediaPlayer.create(this, R.raw.result);
+		mMediaPlayer.setLooping(true);
+		mMediaPlayer.seekTo(0);
+		mMediaPlayer.start();
 	}
 
 	private void setExp() {
@@ -48,6 +55,14 @@ public class ResultActivity extends Activity implements View.OnClickListener {
 
 	@Override
 	public void onClick(View v) {
+		mMediaPlayer.stop();
+		mMediaPlayer.release();
+
+		mMediaPlayer = MediaPlayer.create(this, R.raw.push_bigger);
+		mMediaPlayer.setLooping(false);
+		mMediaPlayer.start();
+		mMediaPlayer.stop();
+		mMediaPlayer.release();
 		if (CharacterManager.isPlayerLevelUp()) {
 			findViewById(R.id.level_up).setVisibility(View.VISIBLE);
 			levelText.setText(Integer.toString(CharacterManager

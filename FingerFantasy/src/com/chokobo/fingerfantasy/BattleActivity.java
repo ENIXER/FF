@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -18,6 +19,7 @@ import android.view.Menu;
 public class BattleActivity extends Activity {
 
 	private int quest_no;
+	private MediaPlayer mMediaPlayer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,18 +57,21 @@ public class BattleActivity extends Activity {
 			enemyName.setImageResource(R.drawable.ago_name);
 			enemy_image = BitmapFactory.decodeResource(getResources(),
 					R.drawable.ago);
+			mMediaPlayer = MediaPlayer.create(this, R.raw.zakobattle);
 			break;
 		case 2:
 			layout.setBackgroundResource(R.drawable.volcano);
 			enemyName.setImageResource(R.drawable.dragon_name);
 			enemy_image = BitmapFactory.decodeResource(getResources(),
 					R.drawable.dragon_light);
+			mMediaPlayer = MediaPlayer.create(this, R.raw.dragonbattle);
 			break;
 		case 3:
 			layout.setBackgroundResource(R.drawable.waterfall);
 			enemyName.setImageResource(R.drawable.leviathan_name);
 			enemy_image = BitmapFactory.decodeResource(getResources(),
-					R.drawable.leviathan);
+					R.drawable.leviathan_kai);
+			mMediaPlayer = MediaPlayer.create(this, R.raw.leviazanbattle);
 			break;
 		default:
 			layout.setBackgroundResource(R.drawable.glass);
@@ -77,14 +82,22 @@ public class BattleActivity extends Activity {
 
 		ImageView enemy_imageview = (ImageView) findViewById(R.id.enemy_image);
 		enemy_imageview.setImageBitmap(enemy_image);
+		mMediaPlayer.setLooping(true);
+		mMediaPlayer.seekTo(0);
+		mMediaPlayer.start();
 	}
 
 	public void showContinue() {
+		resetMedia();
 		Intent i = new Intent(this,
 				com.chokobo.fingerfantasy.ResetActivity.class);
 		i.putExtra("quest_no", quest_no);
 		startActivity(i);
-
+	}
+	
+	public void resetMedia(){
+		mMediaPlayer.stop();
+		mMediaPlayer.release();
 	}
 
 	public void showDamage(int damage) {
