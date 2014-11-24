@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 import android.view.Menu;
 
 public class BattleActivity extends ActionBarActivity {
@@ -78,6 +79,10 @@ public class BattleActivity extends ActionBarActivity {
 		i.putExtra("quest_no", quest_no);
 		startActivity(i);
 
+	}
+	
+	public void showDamage(int damage){
+        Toast.makeText(this, damage + "のダメージ", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override

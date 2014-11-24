@@ -229,6 +229,7 @@ public class TestView extends View {
 			makeTargets();
 			invalidate();
 			CharacterManager.damage(CharacterManager.getEnemy(), totalDamage);
+			ActivityManager.showDamage(totalDamage);
 			CharacterManager.decEnemyturn();
 			if (CharacterManager.isEnemyDead())
 				ActivityManager.intentActivity(); // 敵を討伐判定

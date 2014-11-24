@@ -30,4 +30,8 @@ public class ActivityManager {
 	static public void showContinue() {
 		origin_activity.showContinue();
 	}
+	
+	static public void showDamage(int damage){
+		origin_activity.showDamage(damage);
+	}
 }
