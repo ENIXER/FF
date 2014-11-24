@@ -1,6 +1,9 @@
 package com.chokobo.fingerfantasy;
 
+import junit.framework.Test;
+
 import com.chokobo.fingerfantasy.characters.CharacterManager;
+import com.chokobo.fingerfantasy.customviews.TestView;
 
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
@@ -13,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.Menu;
+import android.view.View;
 
 public class BattleActivity extends ActionBarActivity {
 
@@ -21,13 +25,13 @@ public class BattleActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_battle);
-
 		ActivityManager.setActivity(this);
+		setContentView(R.layout.activity_battle);
 		Intent i = getIntent();
 		quest_no = i.getIntExtra("quest_no", -1);
-
 		initView();
+		TestView testview = (TestView)findViewById(R.id.testview);
+		testview.init(CharacterManager.getCrystal());
 	}
 
 	private void initView() {
@@ -39,6 +43,7 @@ public class BattleActivity extends ActionBarActivity {
 		CharacterManager.initEnemy(quest_no);
 		CharacterManager.setProgressBar(p_bar, e_bar);
 		CharacterManager.setTurn();
+		setPlayerHp();
 	}
 
 	private void setEnemy() {
@@ -87,6 +92,18 @@ public class BattleActivity extends ActionBarActivity {
 
 	public void showDamage(int damage) {
 		Toast.makeText(this, damage + "のダメージ", Toast.LENGTH_SHORT).show();
+	}
+	
+	public void setPlayerHp(){
+		int player_hp_value = CharacterManager.getPlayerHp();
+		String player_hp_string = String.valueOf(player_hp_value);
+		int player_maxhp_value = CharacterManager.getPlayerMaxHp();
+		String player_maxhp_string = String.valueOf(player_maxhp_value);
+		
+		TextView player_hp_textview = (TextView)findViewById(R.id.hp_text);
+		player_hp_textview.setText(player_hp_string);
+		TextView player_maxhp_textview = (TextView)findViewById(R.id.maxhp_text);
+		player_maxhp_textview.setText(player_maxhp_string);
 	}
 
 	@Override

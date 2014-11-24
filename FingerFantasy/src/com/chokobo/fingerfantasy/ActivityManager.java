@@ -34,4 +34,8 @@ public class ActivityManager {
 	static public void showDamage(int damage) {
 		origin_activity.showDamage(damage);
 	}
+	
+	static public void setPlayerHp(){
+		origin_activity.setPlayerHp();
+	}
 }

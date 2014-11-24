@@ -13,21 +13,34 @@ public class Player extends Character {
 		super(150, 20);
 		level = 1;
 		exp = 0;
+		max_hp = 150;
 	}
+
+	protected int max_hp;
 
 	public void setProgressBar(ProgressBar b) {
 		super.setProgressBar(b);
+
 	}
 
 	@Override
 	public void attack() {
 	}
 
+	protected int getMaxHp() {
+		return max_hp;
+	}
+
+	protected int getHp() {
+		return hp;
+	}
+
 	public void earnExp(int value) {
 		exp += value;
 		while (exp >= expTable[level]) {
 			level++;
-			hp += 150;
+			max_hp += 150;
+			hp = max_hp;
 			atk++;
 		}
 	}

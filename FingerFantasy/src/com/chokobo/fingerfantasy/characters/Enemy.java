@@ -1,5 +1,7 @@
 package com.chokobo.fingerfantasy.characters;
 
+import java.util.Random;
+
 import android.widget.ProgressBar;
 
 public class Enemy extends Character {
