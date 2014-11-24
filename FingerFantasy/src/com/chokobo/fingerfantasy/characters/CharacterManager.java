@@ -1,5 +1,7 @@
 package com.chokobo.fingerfantasy.characters;
 
+import java.util.Random;
+
 import com.chokobo.fingerfantasy.ActivityManager;
 
 import android.widget.ProgressBar;
@@ -18,6 +20,9 @@ public class CharacterManager {
 	
 	/*
 	 * enemy_id 1:あご(HP:200, 攻:10, 1ターン) 2:ドラゴン(HP:300, 攻:30, 3ターン)
+	 * enemy_id 
+	 * 1:あご(HP:120, 攻:50×ランダム（0.9〜1.1）, 2ターン) 
+	 * 2:ドラゴン(HP:300, 攻:30, 3ターン) 
 	 * 3:雑魚(HP:5000, 攻:1500, 1ターン)
 	 */
 
@@ -25,7 +30,7 @@ public class CharacterManager {
 			ProgressBar enemy_bar, int enemy_id) {
 
 		player = new Player(100, 10, player_bar);
-		
+
 		int hp, atk, turn, exp, crystal;
 		switch (enemy_id) {
 		case 1:
@@ -83,6 +88,14 @@ public class CharacterManager {
 		enemy.decEnemyTurn();
 		setTurn();
 	}
+	
+	public static int getExp(){
+		return enemy.getExp();
+	}
+	
+	public static int getCrystal(){
+		return enemy.getCrystal();
+	}
 
 	public static void setTurn() {
 		ActivityManager.setTurn(enemy.getEnemyTurn());
@@ -105,4 +118,9 @@ public class CharacterManager {
 		return enemy.isDead();
 	}
 
+	public float calcRate(){
+		Random rand = new Random(System.currentTimeMillis());
+		float rate = 0;
+		return rate;
+	}
 }

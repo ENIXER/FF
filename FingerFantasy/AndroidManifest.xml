@@ -10,7 +10,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -26,22 +26,24 @@
         </activity>
         <activity
             android:name=".QuestmenuActivity"
-            android:label="@string/title_activity_questmenu"
+            android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".BattleActivity"
-            android:label="@string/title_activity_battle"
+            android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ReesultActivity"
-            android:label="@string/title_activity_reesult"
+            android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ResetActivity"
-            android:label="@string/title_activity_reset" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            >
         </activity>
     </application>
 

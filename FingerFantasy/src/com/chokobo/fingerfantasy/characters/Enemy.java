@@ -32,4 +32,12 @@ public class Enemy extends Character {
 	protected void resetTurn(){
 		enemy_turn = max_turn;
 	}
+	
+	protected int getExp(){
+		return exp;
+	}
+	
+	protected int getCrystal(){
+		return crystal;
+	}
 }

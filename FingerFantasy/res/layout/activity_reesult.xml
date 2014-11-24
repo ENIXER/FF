@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:paddingBottom="279dp"
+        android:paddingBottom="319dp"
         android:paddingLeft="120dp"
         android:paddingStart="25dp"
 		android:paddingRight="0dp"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:paddingBottom="173dp"
+        android:paddingBottom="197dp"
         android:paddingLeft="150dp"
         android:paddingStart="25dp"
 		android:paddingRight="0dp"
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:paddingBottom="91dp"
+        android:paddingBottom="106dp"
         android:paddingLeft="150dp"
         android:paddingStart="25dp"
 		android:paddingRight="0dp"
@@ -60,12 +60,12 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#000000" />
 
-        <Button
-            android:id="@+id/resultBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
             android:layout_alignBottom="@+id/getExp_text"
             android:layout_centerHorizontal="true"
-            android:text="戻る" />
+            android:background="@drawable/back_button" />
 
 </RelativeLayout>

@@ -29,7 +29,7 @@ public class ResetActivity extends ActionBarActivity implements View.OnClickList
 
 	@Override
     public void onClick(View v) {
-		Intent i = new Intent(this,com.chokobo.fingerfantasy.ReesultActivity.class);
+		Intent i = new Intent(this,com.chokobo.fingerfantasy.QuestmenuActivity.class);
 		this.startActivityForResult(i, 1);
 	}
 
