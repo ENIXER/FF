@@ -15,6 +15,7 @@ public class ActivityManager {
 		Intent i = new Intent(origin_activity,
 				com.chokobo.fingerfantasy.ResultActivity.class);
 		origin_activity.startActivity(i);
+		origin_activity.finish();
 	}
 
 	static public void setTurn(int turn) {

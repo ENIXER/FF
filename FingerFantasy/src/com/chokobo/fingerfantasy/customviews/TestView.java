@@ -21,6 +21,7 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -99,7 +100,27 @@ public class TestView extends View {
 					R.drawable.wind_074, R.drawable.wind_075,
 					R.drawable.wind_076, R.drawable.wind_077,
 					R.drawable.wind_078, R.drawable.wind_079,
-					R.drawable.wind_080, R.drawable.wind_081, },
+					R.drawable.wind_080, R.drawable.wind_081,
+					R.drawable.wind_082, R.drawable.wind_083,
+					R.drawable.wind_084, R.drawable.wind_085,
+					R.drawable.wind_086, R.drawable.wind_087,
+					R.drawable.wind_088, R.drawable.wind_089,
+					R.drawable.wind_090, R.drawable.wind_091,
+					R.drawable.wind_092, R.drawable.wind_093,
+					R.drawable.wind_094, R.drawable.wind_095,
+					R.drawable.wind_096, R.drawable.wind_097,
+					R.drawable.wind_098, R.drawable.wind_099,
+					R.drawable.wind_100, R.drawable.wind_101,
+					R.drawable.wind_102, R.drawable.wind_103,
+					R.drawable.wind_104, R.drawable.wind_105,
+					R.drawable.wind_106, R.drawable.wind_107,
+					R.drawable.wind_108, R.drawable.wind_109,
+					R.drawable.wind_110, R.drawable.wind_111,
+					R.drawable.wind_112, R.drawable.wind_113,
+					R.drawable.wind_114, R.drawable.wind_115,
+					R.drawable.wind_116, R.drawable.wind_117,
+					R.drawable.wind_118, R.drawable.wind_119,
+					R.drawable.wind_120, },
 			{ R.drawable.ice_001, R.drawable.ice_002, R.drawable.ice_003,
 					R.drawable.ice_004, R.drawable.ice_005, R.drawable.ice_006,
 					R.drawable.ice_007, R.drawable.ice_008, R.drawable.ice_009,
@@ -126,7 +147,140 @@ public class TestView extends View {
 					R.drawable.ice_070, R.drawable.ice_071, R.drawable.ice_072,
 					R.drawable.ice_073, R.drawable.ice_074, R.drawable.ice_075,
 					R.drawable.ice_076, R.drawable.ice_077, R.drawable.ice_078,
-					R.drawable.ice_079, R.drawable.ice_080, R.drawable.ice_081, } };
+					R.drawable.ice_079, R.drawable.ice_080, R.drawable.ice_081,
+					R.drawable.ice_082, R.drawable.ice_083, R.drawable.ice_084,
+					R.drawable.ice_085, R.drawable.ice_086, R.drawable.ice_087,
+					R.drawable.ice_088, R.drawable.ice_089, R.drawable.ice_090,
+					R.drawable.ice_091, R.drawable.ice_092, R.drawable.ice_093,
+					R.drawable.ice_094, R.drawable.ice_095, R.drawable.ice_096,
+					R.drawable.ice_097, R.drawable.ice_098, R.drawable.ice_099,
+					R.drawable.ice_100, R.drawable.ice_101, R.drawable.ice_102,
+					R.drawable.ice_103, R.drawable.ice_104, R.drawable.ice_105,
+					R.drawable.ice_106, R.drawable.ice_107, R.drawable.ice_108,
+					R.drawable.ice_109, R.drawable.ice_110, R.drawable.ice_111,
+					R.drawable.ice_112, R.drawable.ice_113, R.drawable.ice_114,
+					R.drawable.ice_115, R.drawable.ice_116, R.drawable.ice_117,
+					R.drawable.ice_118, R.drawable.ice_119, R.drawable.ice_120, },
+			{ R.drawable.fire_001, R.drawable.fire_002, R.drawable.fire_003,
+					R.drawable.fire_004, R.drawable.fire_005,
+					R.drawable.fire_006, R.drawable.fire_007,
+					R.drawable.fire_008, R.drawable.fire_009,
+					R.drawable.fire_010, R.drawable.fire_011,
+					R.drawable.fire_012, R.drawable.fire_013,
+					R.drawable.fire_014, R.drawable.fire_015,
+					R.drawable.fire_016, R.drawable.fire_017,
+					R.drawable.fire_018, R.drawable.fire_019,
+					R.drawable.fire_020, R.drawable.fire_021,
+					R.drawable.fire_022, R.drawable.fire_023,
+					R.drawable.fire_024, R.drawable.fire_025,
+					R.drawable.fire_026, R.drawable.fire_027,
+					R.drawable.fire_028, R.drawable.fire_029,
+					R.drawable.fire_030, R.drawable.fire_031,
+					R.drawable.fire_032, R.drawable.fire_033,
+					R.drawable.fire_034, R.drawable.fire_035,
+					R.drawable.fire_036, R.drawable.fire_037,
+					R.drawable.fire_038, R.drawable.fire_039,
+					R.drawable.fire_040, R.drawable.fire_041,
+					R.drawable.fire_042, R.drawable.fire_043,
+					R.drawable.fire_044, R.drawable.fire_045,
+					R.drawable.fire_046, R.drawable.fire_047,
+					R.drawable.fire_048, R.drawable.fire_049,
+					R.drawable.fire_050, R.drawable.fire_051,
+					R.drawable.fire_052, R.drawable.fire_053,
+					R.drawable.fire_054, R.drawable.fire_055,
+					R.drawable.fire_056, R.drawable.fire_057,
+					R.drawable.fire_058, R.drawable.fire_059,
+					R.drawable.fire_060, R.drawable.fire_061,
+					R.drawable.fire_062, R.drawable.fire_063,
+					R.drawable.fire_064, R.drawable.fire_065,
+					R.drawable.fire_066, R.drawable.fire_067,
+					R.drawable.fire_068, R.drawable.fire_069,
+					R.drawable.fire_070, R.drawable.fire_071,
+					R.drawable.fire_072, R.drawable.fire_073,
+					R.drawable.fire_074, R.drawable.fire_075,
+					R.drawable.fire_076, R.drawable.fire_077,
+					R.drawable.fire_078, R.drawable.fire_079,
+					R.drawable.fire_080, R.drawable.fire_081,
+					R.drawable.fire_082, R.drawable.fire_083,
+					R.drawable.fire_084, R.drawable.fire_085,
+					R.drawable.fire_086, R.drawable.fire_087,
+					R.drawable.fire_088, R.drawable.fire_089,
+					R.drawable.fire_090, R.drawable.fire_091,
+					R.drawable.fire_092, R.drawable.fire_093,
+					R.drawable.fire_094, R.drawable.fire_095,
+					R.drawable.fire_096, R.drawable.fire_097,
+					R.drawable.fire_098, R.drawable.fire_099,
+					R.drawable.fire_100, R.drawable.fire_101,
+					R.drawable.fire_102, R.drawable.fire_103,
+					R.drawable.fire_104, R.drawable.fire_105,
+					R.drawable.fire_106, R.drawable.fire_107,
+					R.drawable.fire_108, R.drawable.fire_109,
+					R.drawable.fire_110, R.drawable.fire_111,
+					R.drawable.fire_112, R.drawable.fire_113,
+					R.drawable.fire_114, R.drawable.fire_115,
+					R.drawable.fire_116, R.drawable.fire_117,
+					R.drawable.fire_118, R.drawable.fire_119,
+					R.drawable.fire_120, },
+			{ R.drawable.holy_001, R.drawable.holy_002, R.drawable.holy_003,
+					R.drawable.holy_004, R.drawable.holy_005,
+					R.drawable.holy_006, R.drawable.holy_007,
+					R.drawable.holy_008, R.drawable.holy_009,
+					R.drawable.holy_010, R.drawable.holy_011,
+					R.drawable.holy_012, R.drawable.holy_013,
+					R.drawable.holy_014, R.drawable.holy_015,
+					R.drawable.holy_016, R.drawable.holy_017,
+					R.drawable.holy_018, R.drawable.holy_019,
+					R.drawable.holy_020, R.drawable.holy_021,
+					R.drawable.holy_022, R.drawable.holy_023,
+					R.drawable.holy_024, R.drawable.holy_025,
+					R.drawable.holy_026, R.drawable.holy_027,
+					R.drawable.holy_028, R.drawable.holy_029,
+					R.drawable.holy_030, R.drawable.holy_031,
+					R.drawable.holy_032, R.drawable.holy_033,
+					R.drawable.holy_034, R.drawable.holy_035,
+					R.drawable.holy_036, R.drawable.holy_037,
+					R.drawable.holy_038, R.drawable.holy_039,
+					R.drawable.holy_040, R.drawable.holy_041,
+					R.drawable.holy_042, R.drawable.holy_043,
+					R.drawable.holy_044, R.drawable.holy_045,
+					R.drawable.holy_046, R.drawable.holy_047,
+					R.drawable.holy_048, R.drawable.holy_049,
+					R.drawable.holy_050, R.drawable.holy_051,
+					R.drawable.holy_052, R.drawable.holy_053,
+					R.drawable.holy_054, R.drawable.holy_055,
+					R.drawable.holy_056, R.drawable.holy_057,
+					R.drawable.holy_058, R.drawable.holy_059,
+					R.drawable.holy_060, R.drawable.holy_061,
+					R.drawable.holy_062, R.drawable.holy_063,
+					R.drawable.holy_064, R.drawable.holy_065,
+					R.drawable.holy_066, R.drawable.holy_067,
+					R.drawable.holy_068, R.drawable.holy_069,
+					R.drawable.holy_070, R.drawable.holy_071,
+					R.drawable.holy_072, R.drawable.holy_073,
+					R.drawable.holy_074, R.drawable.holy_075,
+					R.drawable.holy_076, R.drawable.holy_077,
+					R.drawable.holy_078, R.drawable.holy_079,
+					R.drawable.holy_080, R.drawable.holy_081,
+					R.drawable.holy_082, R.drawable.holy_083,
+					R.drawable.holy_084, R.drawable.holy_085,
+					R.drawable.holy_086, R.drawable.holy_087,
+					R.drawable.holy_088, R.drawable.holy_089,
+					R.drawable.holy_090, R.drawable.holy_091,
+					R.drawable.holy_092, R.drawable.holy_093,
+					R.drawable.holy_094, R.drawable.holy_095,
+					R.drawable.holy_096, R.drawable.holy_097,
+					R.drawable.holy_098, R.drawable.holy_099,
+					R.drawable.holy_100, R.drawable.holy_101,
+					R.drawable.holy_102, R.drawable.holy_103,
+					R.drawable.holy_104, R.drawable.holy_105,
+					R.drawable.holy_106, R.drawable.holy_107,
+					R.drawable.holy_108, R.drawable.holy_109,
+					R.drawable.holy_110, R.drawable.holy_111,
+					R.drawable.holy_112, R.drawable.holy_113,
+					R.drawable.holy_114, R.drawable.holy_115,
+					R.drawable.holy_116, R.drawable.holy_117,
+					R.drawable.holy_118, R.drawable.holy_119,
+					R.drawable.holy_120, }, };
 
 	public TestView(Context context) {
 		super(context);
@@ -192,11 +346,10 @@ public class TestView extends View {
 		canvas.drawPath(path, paint);
 		for (RoundingTarget t : targets)
 			canvas.drawBitmap(t.image, t.x, t.y, paint);
-		if (isAnimated && frame < resources[type].length) {
+		if (isAnimated && frame * 2 < resources[type].length) {
 			anim = BitmapFactory.decodeResource(getResources(),
-					resources[type][frame]);
+					resources[type][frame * 2]);
 			canvas.drawBitmap(anim, 0, 0, paint);
-			isAnimated = false;
 			anim.recycle();
 			frame++;
 		}
@@ -314,7 +467,7 @@ public class TestView extends View {
 					}
 				}
 				if (count % 2 == 1) {
-					// animation();
+					animation();
 					targets.remove(t);
 					i--;
 					pointList.clear();
@@ -356,7 +509,6 @@ public class TestView extends View {
 					}
 				}
 				if (count % 2 == 1) {
-					// animation();
 					Bitmap origin_image = BitmapFactory.decodeResource(
 							getResources(), R.drawable.crystal_select);
 					Bitmap target = Bitmap.createScaledBitmap(origin_image, 70,
@@ -370,10 +522,11 @@ public class TestView extends View {
 
 	private void animation() {
 		Random rand = new Random(System.currentTimeMillis());
-		type = rand.nextInt(2);
+		type = rand.nextInt(4);
 		frame = 0;
 		final Handler handler = new Handler();
 		timer = new Timer(false);
+		Log.d("current", Long.toString(System.currentTimeMillis()));
 		timer.schedule(new TimerTask() {
 			public void run() {
 				handler.post(new Runnable() {
@@ -383,7 +536,7 @@ public class TestView extends View {
 					}
 				});
 			}
-		}, 0, 33);
+		}, 0, 1);
 	}
 
 	/**
@@ -419,9 +572,7 @@ public class TestView extends View {
 	private int calcDamage() {
 		int damage = (int) Math.pow(CharacterManager.getPlayerAtk(),
 				totalDeleted);
-		if (totalDeleted > 1) {
-			damage /= (totalDeleted - 1) * 10;
-		}
+		damage /= (int) Math.pow(10, totalDeleted - 1);
 		return (int) (damage * CharacterManager.getRate());
 	}
 }

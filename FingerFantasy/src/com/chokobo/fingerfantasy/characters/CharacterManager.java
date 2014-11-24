@@ -146,4 +146,16 @@ public class CharacterManager {
 	public static int getPlayerLevel() {
 		return player.getLevel();
 	}
+
+	public static int getNextExp() {
+		return player.getNextExp();
+	}
+
+	public static boolean isPlayerLevelUp() {
+		return player.isLevelUp();
+	}
+
+	public static void resetPlayerLevelUp() {
+		player.resetLevelUp();
+	}
 }

@@ -1,11 +1,11 @@
 package com.chokobo.fingerfantasy;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class QuestmenuActivity extends ActionBarActivity {
+public class QuestmenuActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +19,7 @@ public class QuestmenuActivity extends ActionBarActivity {
 		i.putExtra("quest_no", Integer.parseInt((String) v.getTag()));
 		i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(i);
+		finish();
 	}
 
 	public void onBackButtonClick(View v) {

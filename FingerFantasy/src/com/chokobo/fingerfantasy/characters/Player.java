@@ -5,6 +5,7 @@ import android.widget.ProgressBar;
 public class Player extends Character {
 	private int level;
 	private int exp;
+	private boolean levelUp;
 
 	private int[] expTable = { 0, 100, 300, 600, 1000, 1500, 2100, 2800, 3600,
 			4500, 5500, 6600, 7800, 9100, 10500, 12000 };
@@ -42,10 +43,23 @@ public class Player extends Character {
 			max_hp += 150;
 			hp = max_hp;
 			atk++;
+			levelUp = true;
 		}
 	}
 
 	public int getLevel() {
 		return level;
+	}
+
+	public void resetLevelUp() {
+		levelUp = false;
+	}
+
+	public boolean isLevelUp() {
+		return levelUp;
+	}
+
+	public int getNextExp() {
+		return expTable[level] - exp;
 	}
 }

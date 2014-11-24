@@ -1,11 +1,9 @@
 package com.chokobo.fingerfantasy;
 
-import junit.framework.Test;
-
 import com.chokobo.fingerfantasy.characters.CharacterManager;
 import com.chokobo.fingerfantasy.customviews.TestView;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,9 +14,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.Menu;
-import android.view.View;
 
-public class BattleActivity extends ActionBarActivity {
+public class BattleActivity extends Activity {
 
 	private int quest_no;
 
