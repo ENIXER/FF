@@ -33,7 +33,7 @@ import android.view.View;
 public class TestView extends View {
 
 	/** ターゲットの個数 */
-	private static int TARGETS_NUM = 3;
+	private int TARGETS_NUM = 0;
 	/** 指で描いた軌跡を表示するために使用する */
 	private Paint paint;
 	/** 指で描いた軌跡を保持するために使用する */
@@ -130,21 +130,19 @@ public class TestView extends View {
 
 	public TestView(Context context) {
 		super(context);
-		init();
 	}
 
 	public TestView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		init();
 	}
 
 	public TestView(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
-		init();
 	}
 
 	/** 初期設定を行う */
-	private void init() {
+	public void init(int cryNum) {
+		TARGETS_NUM = cryNum;
 		setupPaint(); // 手書き処理
 		makeTargets();
 		polygons = new ArrayList<List<PointF>>();
@@ -233,9 +231,12 @@ public class TestView extends View {
 			CharacterManager.decEnemyturn();
 			if (CharacterManager.isEnemyDead())
 				ActivityManager.intentActivity(); // 敵を討伐判定
-			if (CharacterManager.isEnemyturn())
+			if (CharacterManager.isEnemyturn()){
 				CharacterManager.damage(CharacterManager.getPlayer(),
 						CharacterManager.getEnemyAtk()); // 敵の攻撃
+				CharacterManager.resetEnemyTurn();
+				ActivityManager.setPlayerHp();
+			}
 			if (CharacterManager.isPlayerDead()) {
 				ActivityManager.showContinue();
 			}

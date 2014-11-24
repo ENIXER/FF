@@ -70,7 +70,7 @@ public class CharacterManager {
 	}
 
 	public static int getEnemyAtk() {
-		return enemy.getAtk();
+		return (int)(enemy.getAtk() * getRate());
 	}
 
 	public static Player getPlayer() {
@@ -115,10 +115,35 @@ public class CharacterManager {
 	public static boolean isEnemyDead() {
 		return enemy.isDead();
 	}
-
-	public float calcRate(){
+	
+	public static int getPlayerHp(){
+		return player.getHp();
+	}
+	
+	public static int getPlayerMaxHp(){
+		return player.getMaxHp();
+	}
+	
+	public static void resetEnemyTurn(){
+		enemy.resetTurn();
+	}
+	
+	public static double getRate(){
 		Random rand = new Random(System.currentTimeMillis());
-		float rate = 0;
+		double rate = 0.0;
+		switch (rand.nextInt(3)) {
+		case 0:
+			rate = 0.9;
+			break;
+		case 1:
+			rate = 1.0;
+			break;
+		case 2:
+			rate = 1.1;
+			break;
+		default:
+			break;
+		}
 		return rate;
 	}
 }

@@ -34,6 +34,7 @@
         android:progressDrawable="@drawable/player_bar" />
 
     <com.chokobo.fingerfantasy.customviews.TestView
+        android:id="@+id/testview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
@@ -53,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/player_bar"
-        android:src="@drawable/lv" />
+        android:src="@drawable/player_bar2" />
 
     <VideoView
         android:id="@+id/video"
@@ -76,6 +77,51 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#000000" />
 
+    <TextView
+        android:id="@+id/hp_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:paddingBottom="47dp"
+        android:paddingEnd="0dp"
+        android:paddingLeft="165dp"
+        android:paddingRight="0dp"
+        android:paddingStart="25dp"
+        android:text="1"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/slash_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:paddingBottom="47dp"
+        android:paddingEnd="0dp"
+        android:paddingLeft="210dp"
+        android:paddingRight="0dp"
+        android:paddingStart="25dp"
+        android:text="/"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/maxhp_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:paddingBottom="47dp"
+        android:paddingEnd="0dp"
+        android:paddingLeft="250dp"
+        android:paddingRight="0dp"
+        android:paddingStart="25dp"
+        android:text="1"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#000000" />
+
     <ImageView
         android:layout_width="107dp"
         android:layout_height="101dp"
@@ -90,9 +136,9 @@
         android:layout_above="@id/lv_text"
         android:layout_alignParentRight="true"
         android:paddingBottom="20dp"
+        android:paddingLeft="0dp"
         android:paddingRight="60dp"
         android:paddingStart="25dp"
-        android:paddingLeft="0dp"
         android:text="1"
         android:textSize="50dp" />
 

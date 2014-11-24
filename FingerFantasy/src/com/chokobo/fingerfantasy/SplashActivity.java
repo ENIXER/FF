@@ -23,10 +23,8 @@ public class SplashActivity extends ActionBarActivity {
 	
 	class splashHandler implements Runnable {
 		public void run() {
-			// スプラッシュ完了後に実行するActivityを指定します。
 			Intent intent = new Intent(getApplication(), StartActivity.class);
 			startActivity(intent);
-			// SplashActivityを終了させます。
 			SplashActivity.this.finish();
 		}
 	}
