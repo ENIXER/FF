@@ -10,12 +10,9 @@ public class CharacterManager {
 	static Enemy enemy;
 
 	enum EnemyId {
-		ZAKO,
-	    GOBURIN,
-	    DRAGON,
-	    LEVIATHAN,
+		ZAKO, GOBURIN, DRAGON, LEVIATHAN,
 	};
-	
+
 	/*
 	 * enemy_id 1:あご(HP:200, 攻:10, 1ターン) 2:ドラゴン(HP:300, 攻:30, 3ターン)
 	 * 3:雑魚(HP:5000, 攻:1500, 1ターン)
@@ -25,7 +22,7 @@ public class CharacterManager {
 			ProgressBar enemy_bar, int enemy_id) {
 
 		player = new Player(100, 10, player_bar);
-		
+
 		int hp, atk, turn, exp, crystal;
 		switch (enemy_id) {
 		case 1:
@@ -56,7 +53,7 @@ public class CharacterManager {
 			crystal = 1;
 			turn = 1;
 		}
-		enemy = new Enemy(hp, atk, enemy_bar, turn,exp,crystal);
+		enemy = new Enemy(hp, atk, enemy_bar, turn, exp, crystal);
 	}
 
 	public static void damage(Character charcter, int totalDamage) {
@@ -90,8 +87,9 @@ public class CharacterManager {
 
 	public static boolean isEnemyturn() {
 		boolean result = false;
-		if (enemy.getEnemyTurn() == 0){
+		if (enemy.getEnemyTurn() == 0) {
 			enemy.resetTurn();
+			setTurn();
 			result = true;
 		}
 		return result;
