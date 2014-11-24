@@ -16,17 +16,12 @@ public class CharacterManager {
 	};
 
 	/*
-	 * enemy_id 1:あご(HP:200, 攻:10, 1ターン) 2:ドラゴン(HP:300, 攻:30, 3ターン)
-	 * enemy_id 
-	 * 1:あご(HP:120, 攻:50×ランダム（0.9〜1.1）, 2ターン) 
-	 * 2:ドラゴン(HP:300, 攻:30, 3ターン) 
+	 * enemy_id 1:あご(HP:200, 攻:10, 1ターン) 2:ドラゴン(HP:300, 攻:30, 3ターン) enemy_id
+	 * 1:あご(HP:120, 攻:50×ランダム（0.9〜1.1）, 2ターン) 2:ドラゴン(HP:300, 攻:30, 3ターン)
 	 * 3:雑魚(HP:5000, 攻:1500, 1ターン)
 	 */
 
-	public static void initCharacter(ProgressBar player_bar,
-			ProgressBar enemy_bar, int enemy_id) {
-
-		player = new Player(100, 10, player_bar);
+	public static void initEnemy(int enemy_id) {
 
 		int hp, atk, turn, exp, crystal;
 		switch (enemy_id) {
@@ -58,7 +53,13 @@ public class CharacterManager {
 			crystal = 1;
 			turn = 1;
 		}
-		enemy = new Enemy(hp, atk, enemy_bar, turn, exp, crystal);
+		enemy = new Enemy(hp, atk, turn, exp, crystal);
+	}
+
+	public static void setProgressBar(ProgressBar playerBar,
+			ProgressBar enemyBar) {
+		player.setProgressBar(playerBar);
+		enemy.setProgressBar(enemyBar);
 	}
 
 	public static void damage(Character charcter, int totalDamage) {
@@ -85,12 +86,12 @@ public class CharacterManager {
 		enemy.decEnemyTurn();
 		setTurn();
 	}
-	
-	public static int getExp(){
+
+	public static int getExp() {
 		return enemy.getExp();
 	}
-	
-	public static int getCrystal(){
+
+	public static int getCrystal() {
 		return enemy.getCrystal();
 	}
 
@@ -116,9 +117,21 @@ public class CharacterManager {
 		return enemy.isDead();
 	}
 
-	public float calcRate(){
+	public float calcRate() {
 		Random rand = new Random(System.currentTimeMillis());
 		float rate = 0;
 		return rate;
+	}
+
+	public static void initPlayer() {
+		player = new Player();
+	}
+
+	public static void earnExp() {
+		player.earnExp(enemy.getExp());
+	}
+
+	public static int getPlayerLevel() {
+		return player.getLevel();
 	}
 }

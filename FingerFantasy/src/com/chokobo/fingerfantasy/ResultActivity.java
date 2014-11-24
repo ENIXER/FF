@@ -11,7 +11,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ReesultActivity extends Activity implements View.OnClickListener{
+public class ResultActivity extends Activity implements View.OnClickListener{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +21,7 @@ public class ReesultActivity extends Activity implements View.OnClickListener{
 		ImageButton btn = (ImageButton)findViewById(R.id.backBtn);
 		btn.setOnClickListener(this);
 		
+		CharacterManager.earnExp();
 		setExp();
 	}
 	

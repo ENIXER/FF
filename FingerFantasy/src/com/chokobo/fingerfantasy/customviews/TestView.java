@@ -46,8 +46,8 @@ public class TestView extends View {
 	private List<List<PointF>> polygons;
 	/** 囲むべきターゲットのリスト */
 	private List<RoundingTarget> targets;
-	/** 与える総ダメージ */
-	private int totalDamage;
+	/** 消したターゲットの個数 */
+	private int totalDeleted;
 	/** アニメーション中かどうかのフラグ */
 	private boolean isAnimated = false;
 	/** アニメーション用のフレーム変数 */
@@ -160,6 +160,8 @@ public class TestView extends View {
 		Bitmap target = Bitmap.createScaledBitmap(origin_image, 70, 70, false);
 		Random rand = new Random(System.currentTimeMillis());
 		Set<Integer> places = new HashSet<Integer>();
+		places.add(29);
+		places.add(34);
 		if (!targets.isEmpty())
 			for (int i = 0; i < targets.size(); i++) {
 				places.add((int) (targets.get(i).x / 100 - 1 + (targets.get(i).y / 100 - 2) * 7));
@@ -228,11 +230,13 @@ public class TestView extends View {
 			deleteTargets();
 			makeTargets();
 			invalidate();
-			CharacterManager.damage(CharacterManager.getEnemy(), totalDamage);
-			ActivityManager.showDamage(totalDamage);
+			int damage = calcDamage();
+			CharacterManager.damage(CharacterManager.getEnemy(), damage);
+			ActivityManager.showDamage(damage);
 			CharacterManager.decEnemyturn();
-			if (CharacterManager.isEnemyDead())
+			if (CharacterManager.isEnemyDead()) {
 				ActivityManager.intentActivity(); // 敵を討伐判定
+			}
 			if (CharacterManager.isEnemyturn())
 				CharacterManager.damage(CharacterManager.getPlayer(),
 						CharacterManager.getEnemyAtk()); // 敵の攻撃
@@ -240,7 +244,7 @@ public class TestView extends View {
 				ActivityManager.showContinue();
 			}
 			makeTargets();
-			totalDamage = 0;
+			totalDeleted = 0;
 			break;
 		}
 		return true;
@@ -313,7 +317,7 @@ public class TestView extends View {
 					targets.remove(t);
 					i--;
 					pointList.clear();
-					totalDamage += CharacterManager.getPlayerAtk();
+					totalDeleted++;
 					break;
 				}
 			}
@@ -325,7 +329,7 @@ public class TestView extends View {
 			animation();
 			for (int deletionId : idList)
 				targets.remove(deletionId);
-			totalDamage += CharacterManager.getPlayerAtk();
+			totalDeleted++;
 		}
 		pointList.clear();
 		polygons.clear();
@@ -406,5 +410,21 @@ public class TestView extends View {
 			this.image = image;
 		}
 
+	}
+
+	/**
+	 * ダメージ計算
+	 */
+	private int calcDamage() {
+		int damage = (int) Math.pow(CharacterManager.getPlayerAtk(),
+				totalDeleted);
+		if (totalDeleted > 1) {
+			damage /= (totalDeleted - 1) * 10;
+		}
+		Random rand = new Random(System.currentTimeMillis());
+		int seed = rand.nextInt(21);
+		damage *= 90 + seed;
+		damage /= 100;
+		return damage;
 	}
 }

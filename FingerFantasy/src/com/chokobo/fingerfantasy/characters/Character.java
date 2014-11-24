@@ -7,14 +7,12 @@ public abstract class Character {
 	protected int hp;
 	protected int atk;
 	protected ProgressBar bar;
-	
-	protected Character(int h, int a, ProgressBar b) {
+
+	protected Character(int h, int a) {
 		hp = h;
 		atk = a;
-		bar = b;
-		init();
 	}
-	
+
 	public abstract void attack();
 
 	protected void damage(int d) {
@@ -22,18 +20,23 @@ public abstract class Character {
 		bar.setProgress(hp);
 	}
 
-	protected int getAtk(){
+	protected void setProgressBar(ProgressBar b) {
+		bar = b;
+		init();
+	}
+
+	protected int getAtk() {
 		return atk;
 	}
-	
+
 	public boolean isDead() {
 		return hp <= 0;
 	}
 
-	protected void init(){
+	protected void init() {
 		bar.setMax(hp);
 		bar.setProgress(hp);
 		bar.bringToFront();
 	}
-	
+
 }

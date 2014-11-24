@@ -13,8 +13,8 @@ public class ActivityManager {
 
 	static public void intentActivity() {
 		Intent i = new Intent(origin_activity,
-				com.chokobo.fingerfantasy.ReesultActivity.class);
-		origin_activity.startActivityForResult(i, 1);
+				com.chokobo.fingerfantasy.ResultActivity.class);
+		origin_activity.startActivity(i);
 	}
 
 	static public void setTurn(int turn) {
@@ -30,8 +30,8 @@ public class ActivityManager {
 	static public void showContinue() {
 		origin_activity.showContinue();
 	}
-	
-	static public void showDamage(int damage){
+
+	static public void showDamage(int damage) {
 		origin_activity.showDamage(damage);
 	}
 }

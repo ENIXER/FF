@@ -2,7 +2,6 @@ package com.chokobo.fingerfantasy;
 
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;

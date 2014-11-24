@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.view.Menu;
 
@@ -33,7 +34,10 @@ public class BattleActivity extends ActionBarActivity {
 		setEnemy();
 		ProgressBar p_bar = (ProgressBar) findViewById(R.id.player_bar);
 		ProgressBar e_bar = (ProgressBar) findViewById(R.id.enemy_bar);
-		CharacterManager.initCharacter(p_bar, e_bar, quest_no);
+		TextView lvView = (TextView) findViewById(R.id.lv_text);
+		lvView.setText(Integer.toString(CharacterManager.getPlayerLevel()));
+		CharacterManager.initEnemy(quest_no);
+		CharacterManager.setProgressBar(p_bar, e_bar);
 		CharacterManager.setTurn();
 	}
 
@@ -80,9 +84,9 @@ public class BattleActivity extends ActionBarActivity {
 		startActivity(i);
 
 	}
-	
-	public void showDamage(int damage){
-        Toast.makeText(this, damage + "のダメージ", Toast.LENGTH_SHORT).show();
+
+	public void showDamage(int damage) {
+		Toast.makeText(this, damage + "のダメージ", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package com.chokobo.fingerfantasy;
 
+import com.chokobo.fingerfantasy.characters.CharacterManager;
+
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +23,8 @@ public class StartActivity extends Activity implements View.OnClickListener {
 		
 		ImageButton start_btn = (ImageButton)findViewById(R.id.startBtn);
 		start_btn.setOnClickListener(this);
+		
+		CharacterManager.initPlayer();
 	}
 
 	@Override
